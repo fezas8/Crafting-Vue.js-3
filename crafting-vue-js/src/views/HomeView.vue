@@ -6,7 +6,7 @@ const captions = [
   "Let your dreams take flight",
   "Escape to your dreams"
 ]
-const getTitleContent = function(){
+const getTitleContent = function(): string {
   const captionIndex = Math.floor(Math.random() * captions.length);
   return captions[captionIndex];
 }
