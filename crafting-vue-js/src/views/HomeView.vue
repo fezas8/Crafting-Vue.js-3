@@ -1,4 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const bookBtnContent = "Book a flight";
+const captions = [
+  "Soar for less",
+  "Ready to takeoff",
+  "Let your dreams take flight",
+  "Escape to your dreams"
+]
+const getTitleContent = function(){
+  const captionIndex = Math.floor(Math.random() * captions.length);
+  return captions[captionIndex];
+}
+const season = "summer";
+</script>
 
 <template>
   <main>
@@ -13,9 +26,9 @@
 
       <div class="hero-body">
         <div class="container has-text-centered">
-          <p class="title is-1">Soar for less</p>
-          <p class="subtitle is-3">50% off for summer</p>
-          <button class="button is-link is-medium">Book a flight</button>
+          <p class="title is-1">{{ getTitleContent() }}</p>
+          <p class="subtitle is-3">{{ season === "summer" ? "50% off for summer" : "20% off for the season" }}</p>
+          <button class="button is-link is-medium">{{ bookBtnContent }}</button>
         </div>
       </div>
     </section>
