@@ -11,6 +11,12 @@ const getTitleContent = function(){
   return captions[captionIndex];
 }
 const season = "summer";
+
+let summerDeal = 50
+const today = new Date();
+if(today.getUTCHours() > 10 ){
+  summerDeal = summerDeal + 0.1 * summerDeal;
+}
 </script>
 
 <template>
@@ -27,7 +33,7 @@ const season = "summer";
       <div class="hero-body">
         <div class="container has-text-centered">
           <p class="title is-1">{{ getTitleContent() }}</p>
-          <p class="subtitle is-3">{{ season === "summer" ? "50% off for summer" : "20% off for the season" }}</p>
+          <p class="subtitle is-3">{{ season === "summer" ? `${summerDeal}% off for summer` : "20% off for the season" }}</p>
           <button class="button is-link is-medium">{{ bookBtnContent }}</button>
         </div>
       </div>
