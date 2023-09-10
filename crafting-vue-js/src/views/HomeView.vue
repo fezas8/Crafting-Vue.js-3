@@ -32,8 +32,8 @@ if(today.getUTCHours() > 10 ){
 
       <div class="hero-body">
         <div class="container has-text-centered">
-          <p class="title is-1">{{ getTitleContent() }}</p>
-          <p class="subtitle is-3">{{ season === "summer" ? `${summerDeal}% off for summer` : "20% off for the season" }}</p>
+          <h1 class="title is-1">{{ getTitleContent() }}</h1>
+          <h3 class="subtitle is-3">{{ season === "summer" ? `${summerDeal}% off for summer` : "20% off for the season" }}</h3>
           <button class="button is-link is-medium">{{ bookBtnContent }}</button>
         </div>
       </div>
