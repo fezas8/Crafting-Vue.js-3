@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 const bookBtnContent = "Book a flight";
 const captions = [
   "Soar for less",
@@ -12,10 +13,14 @@ const getTitleContent = function(): string {
 }
 
 let title: string = getTitleContent();
-setTimeout(() => {
+let intervalId = setInterval(() => {
  title = getTitleContent();
  console.log("title", title);
 }, 1000)
+
+setTimeout(() => {
+  clearInterval(intervalId)
+}, 10000);
 
 </script>
 
