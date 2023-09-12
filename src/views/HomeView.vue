@@ -10,13 +10,13 @@ const getTitleContent = function(): string {
   const captionIndex = Math.floor(Math.random() * captions.length);
   return captions[captionIndex];
 }
-const season = "summer";
 
-let summerDeal = 50
-const today = new Date();
-if(today.getUTCHours() > 10 ){
-  summerDeal = summerDeal + 0.1 * summerDeal;
-}
+let title: string = getTitleContent();
+setTimeout(() => {
+ title = getTitleContent();
+ console.log("title", title);
+}, 1000)
+
 </script>
 
 <template>
@@ -32,8 +32,7 @@ if(today.getUTCHours() > 10 ){
 
       <div class="hero-body">
         <div class="container has-text-centered">
-          <h1 class="title is-1">{{ getTitleContent() }}</h1>
-          <h3 class="subtitle is-3">{{ season === "summer" ? `${summerDeal}% off for summer` : "20% off for the season" }}</h3>
+          <h1 class="title is-1">{{ title }}</h1>
           <button class="button is-link is-medium">{{ bookBtnContent }}</button>
         </div>
       </div>
