@@ -13,8 +13,8 @@
 
       <div class="hero-body">
         <div class="container has-text-centered">
-          <p class="title is-1">Soar for less</p>
-          <p class="subtitle is-3">50% off for summer</p>
+          <h1 class="title is-1">Soar for less</h1>
+          <h3 class="subtitle is-3">50% off for summer</h3>
           <button class="button is-link is-medium">Book a flight</button>
         </div>
       </div>
