@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import type { Ref } from "vue";
 
 const bookBtnContent = "Book a flight";
-const captions = ref([
+const captions = ref<Array<string>>([
   "Soar for less",
   "Ready to takeoff",
   "Let your dreams take flight",
