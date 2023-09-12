@@ -3,26 +3,28 @@ import { ref } from 'vue';
 import type { Ref } from "vue";
 
 const bookBtnContent = "Book a flight";
-const captions = [
+const captions = ref([
   "Soar for less",
   "Ready to takeoff",
   "Let your dreams take flight",
   "Escape to your dreams"
-]
+])
 const getTitleContent = function(): string {
-  const captionIndex = Math.floor(Math.random() * captions.length);
-  return captions[captionIndex];
+  return captions.value[captions.value.length-1];
 }
 
 let title: Ref<string> = ref(getTitleContent());
 let intervalId = setInterval(() => {
  title.value = getTitleContent();
- console.log("title", title);
+ captions.value.pop();
+ console.log("title", title.value);
+ console.log("captions", captions.value);
+ 
 }, 1000)
 
 setTimeout(() => {
   clearInterval(intervalId)
-}, 10000);
+}, 4000);
 
 </script>
 
