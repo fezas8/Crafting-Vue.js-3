@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+import type { Ref } from "vue";
 
 const bookBtnContent = "Book a flight";
 const captions = [
@@ -12,9 +14,9 @@ const getTitleContent = function(): string {
   return captions[captionIndex];
 }
 
-let title: string = getTitleContent();
+let title: Ref<string> = ref(getTitleContent());
 let intervalId = setInterval(() => {
- title = getTitleContent();
+ title.value = getTitleContent();
  console.log("title", title);
 }, 1000)
 
