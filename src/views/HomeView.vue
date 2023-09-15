@@ -1,40 +1,44 @@
-<script setup lang="ts">
-import { ref } from 'vue';
-import type { Ref } from "vue";
+<script lang="ts">
+export default {
+  data() {
+    return {
+      bookBtnContent: 'Book a flight',
+      captions: [
+        'Soar for less',
+        'Ready to takeoff',
+        'Let your dreams take flight',
+        'Escape to your dreams'
+      ],
+      title: ''
+    }
+  },
+  methods: {
+    getTitleContent: function () {
+      return this.captions[this.captions.length - 1]
+    }
+  },
+  mounted() {
+    this.title = this.getTitleContent()
+    let intervalId = setInterval(() => {
+      this.title = this.getTitleContent()
+      this.captions.pop()
+      console.log('title', this.title)
+      console.log('captions', this.captions)
+    }, 1000)
 
-const bookBtnContent = "Book a flight";
-const captions = ref<Array<string>>([
-  "Soar for less",
-  "Ready to takeoff",
-  "Let your dreams take flight",
-  "Escape to your dreams"
-])
-const getTitleContent = function(): string {
-  return captions.value[captions.value.length-1];
+    setTimeout(() => {
+      clearInterval(intervalId)
+    }, 4000)
+  }
 }
-
-let title: Ref<string> = ref(getTitleContent());
-let intervalId = setInterval(() => {
- title.value = getTitleContent();
- captions.value.pop();
- console.log("title", title.value);
- console.log("captions", captions.value);
- 
-}, 1000)
-
-setTimeout(() => {
-  clearInterval(intervalId)
-}, 4000);
-
 </script>
-
 <template>
   <main>
     <section class="hero is-fullheight">
       <div class="hero-head">
         <div class="container">
           <figure class="image is-64x64">
-            <img  src="../assets/logo.png" alt="Logo" />
+            <img src="../assets/logo.png" alt="Logo" />
           </figure>
         </div>
       </div>
