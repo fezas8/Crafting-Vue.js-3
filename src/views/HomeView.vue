@@ -1,7 +1,19 @@
 <script setup lang="ts">
+import { type Ref, ref } from "vue";
 
-const bookBtnContent = 'Book a flight'
-const title = 'Let your dreams take flight...'
+const bookBtnContent = 'Book a flight';
+const title = 'Let your dreams take flight...';
+const bookingDetails: Ref<{ [key: string]: string | number }> = ref({
+  from: "",
+  to: "",
+  date: "",
+  adults: 0,
+  child: 0
+});
+const notValidBooking = function(){
+  return Object.keys(bookingDetails.value).some(item => !!bookingDetails.value[item] === false);
+}
+
 </script>
 
 <template>
@@ -12,9 +24,7 @@ const title = 'Let your dreams take flight...'
           <div class="container">
             <div class="navbar-brand">
               <a class="navbar-item">
-                <h2 class="logo is-size-3">
-                  VUELINES
-                </h2>
+                <h2 class="logo is-size-3">VUELINES</h2>
               </a>
             </div>
           </div>
@@ -52,8 +62,11 @@ const title = 'Let your dreams take flight...'
             <div>
               <input class="input is-link" type="number" placeholder="1 Adult" />
             </div>
+            <div>
+              <input class="input is-link" type="number" placeholder="1 Child" />
+            </div>
           </div>
-          <button class="button is-warning is-medium">{{ bookBtnContent }}</button>
+          <button v-bind:disabled="notValidBooking()" class="button is-warning is-medium">{{ bookBtnContent }}</button>
         </div>
       </div>
     </section>
@@ -77,6 +90,7 @@ const title = 'Let your dreams take flight...'
   background-size: cover;
 }
 .logo {
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+    Verdana, sans-serif;
 }
 </style>
