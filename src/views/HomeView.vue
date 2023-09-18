@@ -1,19 +1,8 @@
 <script setup lang="ts">
-import { type Ref, ref } from "vue";
+import { ref } from "vue";
 
 const bookBtnContent = 'Book a flight';
-const title = 'Let your dreams take flight...';
-const bookingDetails: Ref<{ [key: string]: string | number }> = ref({
-  from: "",
-  to: "",
-  date: "",
-  adults: 0,
-  child: 0
-});
-const notValidBooking = function(){
-  return Object.keys(bookingDetails.value).some(item => !!bookingDetails.value[item] === false);
-}
-
+const title = ref('Let your dreams take flight...');
 </script>
 
 <template>
@@ -32,7 +21,7 @@ const notValidBooking = function(){
       </div>
       <div class="hero-body">
         <div class="container has-text-centered">
-          <h1 class="title is-1">{{ title }}</h1>
+          <h1 class="title is-1">{{ title.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()) }}</h1>
           <div class="fields-wrapper">
             <div>
               <div class="select is-link">
@@ -66,7 +55,7 @@ const notValidBooking = function(){
               <input class="input is-link" type="number" placeholder="1 Child" />
             </div>
           </div>
-          <button v-bind:disabled="notValidBooking()" class="button is-warning is-medium">{{ bookBtnContent }}</button>
+          <button class="button is-warning is-medium">{{ bookBtnContent }}</button>
         </div>
       </div>
     </section>
