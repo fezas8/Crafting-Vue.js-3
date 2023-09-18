@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const bookBtnContent = 'Book a flight';
-const title = ref('Let your dreams take flight...');
+const title = ref<string>('Let your dreams take flight...');
+const titleCapitalized = computed<string>(() => title.value.replace(/(^\w{1})|(\s+\w{1})/g, alphabet => alphabet.toUpperCase()) );
+//title.value = "Escape to your dreams";
 </script>
 
 <template>
@@ -21,7 +23,7 @@ const title = ref('Let your dreams take flight...');
       </div>
       <div class="hero-body">
         <div class="container has-text-centered">
-          <h1 class="title is-1">{{ title.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()) }}</h1>
+          <h1 class="title is-1">{{ titleCapitalized }}</h1>
           <div class="fields-wrapper">
             <div>
               <div class="select is-link">
