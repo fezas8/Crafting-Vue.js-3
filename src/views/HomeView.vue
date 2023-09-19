@@ -1,10 +1,22 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 
-const bookBtnContent = 'Book a flight';
-const title = ref<string>('Let your dreams take flight...');
-const titleCapitalized = computed<string>(() => title.value.replace(/(^\w{1})|(\s+\w{1})/g, alphabet => alphabet.toUpperCase()) );
-//title.value = "Escape to your dreams";
+const bookBtnContent = 'Book a flight'
+const title = ref<string>('Let your dreams take flight...')
+const titleCapitalized = computed<string>({
+  get() {
+    return title.value.replace(/(^\w{1})|(\s+\w{1})/g, (alphabet) => alphabet.toUpperCase())
+  },
+  set(newValue) {
+    title.value = newValue[0].toUpperCase() + newValue.substring(1).toLowerCase();
+  }
+})
+onMounted(() => {
+  setTimeout(() => {
+    titleCapitalized.value = "Escape To Your Dream";
+    console.log(title.value);
+  }, 3000);
+});
 </script>
 
 <template>
