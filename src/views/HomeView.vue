@@ -6,6 +6,7 @@ const title = ref<string>('Let your dreams take flight...');
 const titleCapitalized = computed<string>(() => title.value.replace(/(^\w{1})|(\s+\w{1})/g, alphabet => alphabet.toUpperCase()) );
 const bookingDisabled = ref(true);
 const themeClass = ref("is-link");
+const dynamicAttr = ref("id");
 </script>
 
 <template>
@@ -62,7 +63,7 @@ const themeClass = ref("is-link");
         </div>
       </div>
     </section>
-    <section class="section image-section"></section>
+    <section :[dynamicAttr]="'image'" class="section image-section"></section>
   </main>
 </template>
 <style scoped>
