@@ -7,6 +7,10 @@ const titleCapitalized = computed<string>(() => title.value.replace(/(^\w{1})|(\
 const bookingDisabled = ref(true);
 const themeClass = ref("is-link");
 const dynamicAttr = ref("id");
+const anchorAttributes = {
+  id: "logo",
+  href: "/"
+}
 </script>
 
 <template>
@@ -16,7 +20,7 @@ const dynamicAttr = ref("id");
         <nav class="navbar">
           <div class="container">
             <div class="navbar-brand">
-              <a class="navbar-item">
+              <a v-bind="anchorAttributes" class="navbar-item">
                 <h2 class="logo is-size-3">VUELINES</h2>
               </a>
             </div>
