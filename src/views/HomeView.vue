@@ -4,7 +4,7 @@ import { ref, computed } from "vue";
 const bookBtnContent = 'Book a flight';
 const title = ref<string>('Let your dreams take flight...');
 const titleCapitalized = computed<string>(() => title.value.replace(/(^\w{1})|(\s+\w{1})/g, alphabet => alphabet.toUpperCase()) );
-//title.value = "Escape to your dreams";
+const bookingDisabled = ref(true);
 </script>
 
 <template>
@@ -57,7 +57,7 @@ const titleCapitalized = computed<string>(() => title.value.replace(/(^\w{1})|(\
               <input class="input is-link" type="number" placeholder="1 Child" />
             </div>
           </div>
-          <button class="button is-warning is-medium">{{ bookBtnContent }}</button>
+          <button class="button is-warning is-medium" :disabled="bookingDisabled">{{ bookBtnContent }}</button>
         </div>
       </div>
     </section>
