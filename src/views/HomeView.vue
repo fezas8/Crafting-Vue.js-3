@@ -4,7 +4,7 @@ import { ref, computed } from "vue";
 const bookBtnContent = 'Book a flight';
 const title = ref<string>('Let your dreams take flight...');
 const titleCapitalized = computed<string>(() => title.value.replace(/(^\w{1})|(\s+\w{1})/g, alphabet => alphabet.toUpperCase()) );
-//title.value = "Escape to your dreams";
+
 </script>
 
 <template>
