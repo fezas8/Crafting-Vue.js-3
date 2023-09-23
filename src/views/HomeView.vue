@@ -5,11 +5,12 @@ const bookBtnContent = 'Book a flight';
 const title = ref<string>('Let your dreams take flight...');
 const titleCapitalized = computed<string>(() => title.value.replace(/(^\w{1})|(\s+\w{1})/g, alphabet => alphabet.toUpperCase()) );
 const bookingDisabled = ref(true);
+const themeClass = ref("is-link");
 </script>
 
 <template>
   <main>
-    <section class="hero is-link">
+    <section class="hero" :class="themeClass">
       <div class="hero-head">
         <nav class="navbar">
           <div class="container">
@@ -26,7 +27,7 @@ const bookingDisabled = ref(true);
           <h1 class="title is-1">{{ titleCapitalized }}</h1>
           <div class="fields-wrapper">
             <div>
-              <div class="select is-link">
+              <div class="select" :class="themeClass">
                 <select>
                   <option>Travel from</option>
                   <option>Copenhagen</option>
@@ -37,7 +38,7 @@ const bookingDisabled = ref(true);
               </div>
             </div>
             <div>
-              <div class="select is-link">
+              <div class="select" :class="themeClass">
                 <select>
                   <option>Travel to</option>
                   <option>Copenhagen</option>
@@ -48,13 +49,13 @@ const bookingDisabled = ref(true);
               </div>
             </div>
             <div>
-              <input class="input is-link" type="date" placeholder="Enter date" />
+              <input class="input" :class="themeClass" type="date" placeholder="Enter date" />
             </div>
             <div>
-              <input class="input is-link" type="number" placeholder="1 Adult" />
+              <input class="input" :class="themeClass" type="number" placeholder="1 Adult" />
             </div>
             <div>
-              <input class="input is-link" type="number" placeholder="1 Child" />
+              <input class="input" :class="themeClass" type="number" placeholder="1 Child" />
             </div>
           </div>
           <button class="button is-warning is-medium" :disabled="bookingDisabled">{{ bookBtnContent }}</button>
