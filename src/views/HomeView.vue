@@ -7,6 +7,8 @@ const bookingDisabled = ref(false);
 const themeClass = ref('is-link');
 const textAlignment = ref('has-text-centered');
 const containerClasses = ['container', textAlignment.value];
+const submitMessage = ref('');
+const notificationClass = ref('');
 </script>
 
 <template>
@@ -51,21 +53,38 @@ const containerClasses = ['container', textAlignment.value];
                 </div>
               </div>
               <div class="control">
-                <input class="input" :class="themeClass" type="date" placeholder="Enter date" value="2025-09-22" />
+                <input
+                  class="input"
+                  :class="themeClass"
+                  type="date"
+                  placeholder="Enter date"
+                  value="2025-09-22"
+                />
               </div>
               <div class="control">
-                <input class="input" :class="themeClass" type="number" placeholder="1 Adult" value="1" />
+                <input
+                  class="input"
+                  :class="themeClass"
+                  type="number"
+                  placeholder="1 Adult"
+                  value="1"
+                />
               </div>
               <div class="control">
-                <input class="input" :class="themeClass" type="number" placeholder="1 Child" value="0"/>
+                <input
+                  class="input"
+                  :class="themeClass"
+                  type="number"
+                  placeholder="1 Child"
+                  value="0"
+                />
               </div>
-            </div>
-            <div class="control">
-              <button class="button is-warning is-medium" :disabled="bookingDisabled" type="submit">
-                {{ bookBtnContent }}
-              </button>
             </div>
           </form>
+          <button class="button is-warning is-medium" :disabled="bookingDisabled">
+            {{ bookBtnContent }}
+          </button>
+          <div :class="notificationClass">{{ submitMessage }}</div>
         </div>
       </div>
     </section>
@@ -73,8 +92,9 @@ const containerClasses = ['container', textAlignment.value];
   </main>
 </template>
 <style scoped>
-.form-wrapper {
-
+.form-wrapper,
+.button {
+  margin-bottom: 16px;
 }
 .image-section {
   height: 70vh;
