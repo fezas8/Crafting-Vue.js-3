@@ -20,6 +20,7 @@ const anchorAttributes = {
 // };
 const textAlignment = ref('has-text-centered')
 const containerClasses = ['container', textAlignment.value]
+const bgImage = "url('https://picsum.photos/800/500')";
 </script>
 
 <template>
@@ -78,7 +79,7 @@ const containerClasses = ['container', textAlignment.value]
         </div>
       </div>
     </section>
-    <section :[dynamicAttr]="'image'" class="section image-section"></section>
+    <section :[dynamicAttr]="'image'" class="section image-section" :style="{ backgroundColor: 'yellow', backgroundImage: bgImage }"></section>
   </main>
 </template>
 <style scoped>
@@ -92,7 +93,7 @@ const containerClasses = ['container', textAlignment.value]
 }
 .image-section {
   height: 70vh;
-  background-image: linear-gradient(to bottom, rgba(255, 255, 0, 0.5), rgba(0, 0, 255, 0.5)),
+background-image: linear-gradient(to bottom, rgba(255, 255, 0, 0.5), rgba(0, 0, 255, 0.5)),
     url(https://images.unsplash.com/photo-1682687982141-0143020ed57a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3087&q=80);
   background-position: center;
   background-size: cover;
