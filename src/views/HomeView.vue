@@ -9,6 +9,11 @@ const textAlignment = ref('has-text-centered');
 const containerClasses = ['container', textAlignment.value];
 const submitMessage = ref('');
 const notificationClass = ref('');
+
+const onSubmit = (): void => {
+  submitMessage.value = 'Booking successful!';
+  notificationClass.value = 'notification is-success';
+};
 </script>
 
 <template>
@@ -81,7 +86,7 @@ const notificationClass = ref('');
               </div>
             </div>
           </form>
-          <button class="button is-warning is-medium" :disabled="bookingDisabled">
+          <button class="button is-warning is-medium" :disabled="bookingDisabled" @click="onSubmit">
             {{ bookBtnContent }}
           </button>
           <div :class="notificationClass">{{ submitMessage }}</div>
@@ -94,7 +99,7 @@ const notificationClass = ref('');
 <style scoped>
 .form-wrapper,
 .button {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 .image-section {
   height: 70vh;
@@ -106,5 +111,9 @@ const notificationClass = ref('');
 .logo {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
     Verdana, sans-serif;
+}
+.notification {
+  width: fit-content;
+  margin: 0 auto;
 }
 </style>
