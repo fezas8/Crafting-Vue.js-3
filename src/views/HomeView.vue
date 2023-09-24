@@ -1,23 +1,25 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed } from 'vue'
 
-const bookBtnContent = 'Book a flight';
-const title = ref<string>('Let your dreams take flight...');
-const titleCapitalized = computed<string>(() => title.value.replace(/(^\w{1})|(\s+\w{1})/g, alphabet => alphabet.toUpperCase()) );
-const bookingDisabled = ref(true);
-const themeClass = ref("is-link");
-const dynamicAttr = ref("id");
+const bookBtnContent = 'Book a flight'
+const title = ref<string>('Let your dreams take flight...')
+const titleCapitalized = computed<string>(() =>
+  title.value.replace(/(^\w{1})|(\s+\w{1})/g, (alphabet) => alphabet.toUpperCase())
+)
+const bookingDisabled = ref(true)
+const themeClass = ref('is-link')
+const dynamicAttr = ref('id')
 const anchorAttributes = {
-  id: "logo",
-  href: "/"
+  id: 'logo',
+  href: '/'
 }
 // const isTextCentered = ref(true);
 // const containerClasses = {
 //   "container": true,
 //   "has-text-centered": isTextCentered
 // };
-const textAlignment = ref("has-text-centered");
-const containerClasses = ["container", textAlignment ];
+const textAlignment = ref('has-text-centered')
+const containerClasses = ['container', textAlignment.value]
 </script>
 
 <template>
