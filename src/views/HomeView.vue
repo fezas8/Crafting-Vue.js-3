@@ -11,6 +11,13 @@ const anchorAttributes = {
   id: "logo",
   href: "/"
 }
+// const isTextCentered = ref(true);
+// const containerClasses = {
+//   "container": true,
+//   "has-text-centered": isTextCentered
+// };
+const textAlignment = ref("has-text-centered");
+const containerClasses = ["container", textAlignment ];
 </script>
 
 <template>
@@ -28,7 +35,7 @@ const anchorAttributes = {
         </nav>
       </div>
       <div class="hero-body">
-        <div class="container has-text-centered">
+        <div :class="containerClasses">
           <h1 class="title is-1">{{ titleCapitalized }}</h1>
           <div class="fields-wrapper">
             <div>
@@ -63,7 +70,9 @@ const anchorAttributes = {
               <input class="input" :class="themeClass" type="number" placeholder="1 Child" />
             </div>
           </div>
-          <button class="button is-warning is-medium" :disabled="bookingDisabled">{{ bookBtnContent }}</button>
+          <button class="button is-warning is-medium" :disabled="bookingDisabled">
+            {{ bookBtnContent }}
+          </button>
         </div>
       </div>
     </section>
