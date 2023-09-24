@@ -7,7 +7,6 @@ const bookingDisabled = ref(false);
 const themeClass = ref('is-link');
 const textAlignment = ref('has-text-centered');
 const containerClasses = ['container', textAlignment.value];
-const bgImage = "url('https://picsum.photos/800/500')";
 
 </script>
 
@@ -67,7 +66,7 @@ const bgImage = "url('https://picsum.photos/800/500')";
         </div>
       </div>
     </section>
-    <section class="section image-section" :style="{ backgroundColor: 'yellow', backgroundImage: bgImage }"></section>
+    <section class="section image-section"></section>
   </main>
 </template>
 <style scoped>
