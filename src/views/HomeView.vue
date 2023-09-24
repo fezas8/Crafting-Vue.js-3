@@ -1,26 +1,14 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue';
 
-const bookBtnContent = 'Book a flight'
-const title = ref<string>('Let your dreams take flight...')
-const titleCapitalized = computed<string>(() =>
-  title.value.replace(/(^\w{1})|(\s+\w{1})/g, (alphabet) => alphabet.toUpperCase())
-)
-const bookingDisabled = ref(true)
-const themeClass = ref('is-link')
-const dynamicAttr = ref('id')
-const anchorAttributes = {
-  id: 'logo',
-  href: '/'
-}
-// const isTextCentered = ref(true);
-// const containerClasses = {
-//   "container": true,
-//   "has-text-centered": isTextCentered
-// };
-const textAlignment = ref('has-text-centered')
-const containerClasses = ['container', textAlignment.value]
+const bookBtnContent = 'Book a flight';
+const title = ref<string>('Let your dreams take flight...');
+const bookingDisabled = ref(false);
+const themeClass = ref('is-link');
+const textAlignment = ref('has-text-centered');
+const containerClasses = ['container', textAlignment.value];
 const bgImage = "url('https://picsum.photos/800/500')";
+
 </script>
 
 <template>
@@ -30,7 +18,7 @@ const bgImage = "url('https://picsum.photos/800/500')";
         <nav class="navbar">
           <div class="container">
             <div class="navbar-brand">
-              <a v-bind="anchorAttributes" class="navbar-item">
+              <a class="navbar-item">
                 <h2 class="logo is-size-3">VUELINES</h2>
               </a>
             </div>
@@ -39,7 +27,7 @@ const bgImage = "url('https://picsum.photos/800/500')";
       </div>
       <div class="hero-body">
         <div :class="containerClasses">
-          <h1 class="title is-1">{{ titleCapitalized }}</h1>
+          <h1 class="title is-1">{{ title }}</h1>
           <div class="fields-wrapper">
             <div>
               <div class="select" :class="themeClass">
@@ -79,7 +67,7 @@ const bgImage = "url('https://picsum.photos/800/500')";
         </div>
       </div>
     </section>
-    <section :[dynamicAttr]="'image'" class="section image-section" :style="{ backgroundColor: 'yellow', backgroundImage: bgImage }"></section>
+    <section class="section image-section" :style="{ backgroundColor: 'yellow', backgroundImage: bgImage }"></section>
   </main>
 </template>
 <style scoped>
