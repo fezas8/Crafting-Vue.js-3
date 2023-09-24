@@ -14,6 +14,11 @@ const onSubmit = (): void => {
   submitMessage.value = 'Booking successful!';
   notificationClass.value = 'notification is-success';
 };
+
+const onBlurOut = () => {
+  submitMessage.value = "";
+  notificationClass.value = "";
+}
 </script>
 
 <template>
@@ -86,7 +91,7 @@ const onSubmit = (): void => {
               </div>
             </div>
           </form>
-          <button class="button is-warning is-medium" :disabled="bookingDisabled" @click="onSubmit">
+          <button class="button is-warning is-medium" :disabled="bookingDisabled" @click="onSubmit" @blur="onBlurOut">
             {{ bookBtnContent }}
           </button>
           <div :class="notificationClass">{{ submitMessage }}</div>
