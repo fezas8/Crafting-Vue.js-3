@@ -1,26 +1,26 @@
-<script setup lang="ts">
-import { ref, computed } from 'vue'
-
-const bookBtnContent = 'Book a flight'
-const title = ref<string>('Let your dreams take flight...')
-const titleCapitalized = computed<string>(() =>
-  title.value.replace(/(^\w{1})|(\s+\w{1})/g, (alphabet) => alphabet.toUpperCase())
-)
-const bookingDisabled = ref(true)
-const themeClass = ref('is-link')
-const dynamicAttr = ref('id')
-const anchorAttributes = {
-  id: 'logo',
-  href: '/'
+<script lang="ts">
+export default {
+  data() {
+    return {
+      bookBtnContent: 'Book a flight',
+      title: 'Let your dreams take flight...',
+      bookingDisabled: true,
+      themeClass: 'is-link',
+      anchorAttributes: {
+        id: 'logo',
+        href: '/'
+      },
+      dynamicAttr: 'id',
+      textAlignment: 'has-text-centered',
+      bgImage: "url('https://picsum.photos/800/500')"
+    }
+  },
+  computed: {
+    titleCapitalized(){
+      return this.title.replace(/(^\w{1})|(\s+\w{1})/g, alphabet => alphabet.toUpperCase()) 
+    }
+  }
 }
-// const isTextCentered = ref(true);
-// const containerClasses = {
-//   "container": true,
-//   "has-text-centered": isTextCentered
-// };
-const textAlignment = ref('has-text-centered')
-const containerClasses = ['container', textAlignment.value]
-const bgImage = "url('https://picsum.photos/800/500')";
 </script>
 
 <template>
@@ -38,7 +38,7 @@ const bgImage = "url('https://picsum.photos/800/500')";
         </nav>
       </div>
       <div class="hero-body">
-        <div :class="containerClasses">
+        <div :class="['container', textAlignment]">
           <h1 class="title is-1">{{ titleCapitalized }}</h1>
           <div class="fields-wrapper">
             <div>
@@ -79,7 +79,11 @@ const bgImage = "url('https://picsum.photos/800/500')";
         </div>
       </div>
     </section>
-    <section :[dynamicAttr]="'image'" class="section image-section" :style="{ backgroundColor: 'yellow', backgroundImage: bgImage }"></section>
+    <section
+      :[dynamicAttr]="'image'"
+      class="section image-section"
+      :style="{ backgroundColor: 'yellow', backgroundImage: bgImage }"
+    ></section>
   </main>
 </template>
 <style scoped>
@@ -93,7 +97,7 @@ const bgImage = "url('https://picsum.photos/800/500')";
 }
 .image-section {
   height: 70vh;
-background-image: linear-gradient(to bottom, rgba(255, 255, 0, 0.5), rgba(0, 0, 255, 0.5)),
+  background-image: linear-gradient(to bottom, rgba(255, 255, 0, 0.5), rgba(0, 0, 255, 0.5)),
     url(https://images.unsplash.com/photo-1682687982141-0143020ed57a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3087&q=80);
   background-position: center;
   background-size: cover;
