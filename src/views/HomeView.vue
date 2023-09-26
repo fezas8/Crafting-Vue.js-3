@@ -10,17 +10,13 @@ const containerClasses = ['container', textAlignment.value];
 const submitMessage = ref('');
 const isBookingSubmitted = ref(false);
 
-const toggleNotification = () => {
-  isBookingSubmitted.value = !isBookingSubmitted.value;
-}
-
 const onSubmit = (): void => {
-  toggleNotification()
+  isBookingSubmitted.value = true
   submitMessage.value = 'Booking successful!';
 };
 
 const onBlurOut = () => {
-  toggleNotification();
+  isBookingSubmitted.value = false
 }
 </script>
 
