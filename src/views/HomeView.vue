@@ -10,17 +10,13 @@ const containerClasses = ['container', textAlignment.value];
 const submitMessage = ref('');
 const isBookingSubmitted = ref(false);
 
-const toggleNotification = () => {
-  isBookingSubmitted.value = !isBookingSubmitted.value;
-}
-
 const onSubmit = (): void => {
-  toggleNotification()
+  isBookingSubmitted.value = true
   submitMessage.value = 'Booking successful!';
 };
 
 const onBlurOut = () => {
-  toggleNotification();
+  isBookingSubmitted.value = false
 }
 </script>
 
@@ -97,7 +93,8 @@ const onBlurOut = () => {
           <button class="button is-warning is-medium" :disabled="bookingDisabled" @click="onSubmit" @blur="onBlurOut">
             {{ bookBtnContent }}
           </button>
-          <div class="notification is-success">{{ submitMessage }}</div>
+          <div v-if="isBookingSubmitted" class="notification is-success">{{ submitMessage }}</div>
+          <div v-else> To book a flight please fill in the above fields and click 'submit' </div>
         </div>
       </div>
     </section>
