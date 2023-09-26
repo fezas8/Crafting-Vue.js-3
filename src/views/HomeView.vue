@@ -8,16 +8,19 @@ const themeClass = ref('is-link');
 const textAlignment = ref('has-text-centered');
 const containerClasses = ['container', textAlignment.value];
 const submitMessage = ref('');
-const notificationClass = ref('');
+const isBookingSubmitted = ref(false);
+
+const toggleNotification = () => {
+  isBookingSubmitted.value = !isBookingSubmitted.value;
+}
 
 const onSubmit = (): void => {
+  toggleNotification()
   submitMessage.value = 'Booking successful!';
-  notificationClass.value = 'notification is-success';
 };
 
 const onBlurOut = () => {
-  submitMessage.value = "";
-  notificationClass.value = "";
+  toggleNotification();
 }
 </script>
 
@@ -94,7 +97,7 @@ const onBlurOut = () => {
           <button class="button is-warning is-medium" :disabled="bookingDisabled" @click="onSubmit" @blur="onBlurOut">
             {{ bookBtnContent }}
           </button>
-          <div :class="notificationClass">{{ submitMessage }}</div>
+          <div class="notification is-success">{{ submitMessage }}</div>
         </div>
       </div>
     </section>
