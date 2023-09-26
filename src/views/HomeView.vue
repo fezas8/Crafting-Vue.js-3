@@ -98,6 +98,7 @@ const onBlurOut = () => {
             {{ bookBtnContent }}
           </button>
           <div v-if="isBookingSubmitted" class="notification is-success">{{ submitMessage }}</div>
+          <div v-else> To book a flight please fill in the above fields and click 'submit' </div>
         </div>
       </div>
     </section>
