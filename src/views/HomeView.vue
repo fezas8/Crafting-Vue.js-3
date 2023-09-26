@@ -97,7 +97,7 @@ const onBlurOut = () => {
           <button class="button is-warning is-medium" :disabled="bookingDisabled" @click="onSubmit" @blur="onBlurOut">
             {{ bookBtnContent }}
           </button>
-          <div class="notification is-success">{{ submitMessage }}</div>
+          <div v-if="isBookingSubmitted" class="notification is-success">{{ submitMessage }}</div>
         </div>
       </div>
     </section>
