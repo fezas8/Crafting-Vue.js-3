@@ -30,6 +30,15 @@ const onSubmit = (): void => {
 const onBlurOut = () => {
   isBookingSubmitted.value = false
 }
+
+const formData = {
+  from: "",
+  to: "",
+  date: "",
+  adults: 0,
+  children: 0
+};
+
 </script>
 
 <template>
