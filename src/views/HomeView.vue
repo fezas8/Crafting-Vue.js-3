@@ -31,13 +31,13 @@ const onBlurOut = () => {
   isBookingSubmitted.value = false
 }
 
-const formData = {
+const formData = ref({
   from: "",
   to: "",
   date: "",
   adults: 0,
   children: 0
-};
+});
 
 </script>
 
