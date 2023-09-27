@@ -24,7 +24,8 @@ const cities = [
 
 const onSubmit = (): void => {
   isBookingSubmitted.value = true
-  submitMessage.value = 'Booking successful!';
+  // submitMessage.value = JSON.stringify(formData.value);
+  submitMessage.value = `Booked from ${formData.value.from} to ${formData.value.to}, dated ${formData.value.date} for ${formData.value.adults} adult(s) and ${formData.value.children} child/children`;
 };
 
 const onBlurOut = () => {
@@ -62,16 +63,16 @@ const formData = ref({
             <div class="field is-grouped is-grouped-centered">
               <div class="control">
                 <div class="select" :class="themeClass">
-                  <select value="Copenhagen">
-                    <option>Travel from</option>
+                  <select v-model="formData.from">
+                    <option disabled value="">Travel from</option>
                     <option v-for="(city, index) in cities" :key="index">{{ city }}</option>
                   </select>
                 </div>
               </div>
               <div class="control">
                 <div class="select" :class="themeClass">
-                  <select value="New York">
-                    <option>Travel to</option>
+                  <select v-model="formData.to">
+                    <option disabled value="">Travel to</option>
                     <option v-for="(city, index) in cities" :key="index">{{ city }}</option>
                   </select>
                 </div>
@@ -82,7 +83,7 @@ const formData = ref({
                   :class="themeClass"
                   type="date"
                   placeholder="Enter date"
-                  value="2025-09-22"
+                  v-model="formData.date"
                 />
               </div>
               <div class="control">
@@ -91,7 +92,7 @@ const formData = ref({
                   :class="themeClass"
                   type="number"
                   placeholder="1 Adult"
-                  value="1"
+                  v-model="formData.adults"
                 />
               </div>
               <div class="control">
@@ -100,7 +101,7 @@ const formData = ref({
                   :class="themeClass"
                   type="number"
                   placeholder="1 Child"
-                  value="0"
+                  v-model="formData.children"
                 />
               </div>
             </div>
