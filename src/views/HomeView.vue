@@ -10,6 +10,18 @@ const containerClasses = ['container', textAlignment.value];
 const submitMessage = ref('');
 const isBookingSubmitted = ref(false);
 
+const cities = [
+  "Dubai",
+  "Amsterdam",
+  "Paris",
+  "Copenhagen",
+  "New Delhi",
+  "New York",
+  "Los Angeles",
+  "London",
+  "Oslo"
+];
+
 const onSubmit = (): void => {
   isBookingSubmitted.value = true
   submitMessage.value = 'Booking successful!';
@@ -43,10 +55,7 @@ const onBlurOut = () => {
                 <div class="select" :class="themeClass">
                   <select value="Copenhagen">
                     <option>Travel from</option>
-                    <option>Copenhagen</option>
-                    <option>Amsterdam</option>
-                    <option>New York</option>
-                    <option>Bangalore</option>
+                    <option v-for="(city, index) in cities" :key="index">{{ city }}</option>
                   </select>
                 </div>
               </div>
@@ -54,10 +63,7 @@ const onBlurOut = () => {
                 <div class="select" :class="themeClass">
                   <select value="New York">
                     <option>Travel to</option>
-                    <option>Copenhagen</option>
-                    <option>Amsterdam</option>
-                    <option>New York</option>
-                    <option>Bangalore</option>
+                    <option v-for="(city, index) in cities" :key="index">{{ city }}</option>
                   </select>
                 </div>
               </div>
