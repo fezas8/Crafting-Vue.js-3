@@ -23,8 +23,7 @@ const cities = [
 ];
 
 const onSubmit = (): void => {
-  isBookingSubmitted.value = true
-  // submitMessage.value = JSON.stringify(formData.value);
+  isBookingSubmitted.value = true;
   submitMessage.value = `Booked from ${formData.value.from} to ${formData.value.to}, dated ${formData.value.date} for ${formData.value.adults} adult(s) and ${formData.value.children} child/children`;
 };
 
