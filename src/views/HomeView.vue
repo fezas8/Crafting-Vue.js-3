@@ -64,7 +64,9 @@ const formData = ref({
                 <div class="select" :class="themeClass">
                   <select v-model="formData.from">
                     <option disabled value="">Travel from</option>
-                    <option v-for="(city, index) in cities" :key="index">{{ city }}</option>
+                    <template v-for="(city, index) in cities" :key="index">
+                      <option v-if="city !== formData.to">{{ city }}</option>
+                    </template>
                   </select>
                 </div>
               </div>
@@ -72,7 +74,9 @@ const formData = ref({
                 <div class="select" :class="themeClass">
                   <select v-model="formData.to">
                     <option disabled value="">Travel to</option>
-                    <option v-for="(city, index) in cities" :key="index">{{ city }}</option>
+                    <template v-for="(city, index) in cities" :key="index">
+                      <option v-if="city !== formData.from">{{ city }}</option>
+                    </template>
                   </select>
                 </div>
               </div>
