@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, type Ref } from 'vue';
+import { ref, watch, type Ref, onMounted } from 'vue';
 
 const bookBtnContent = 'Book a flight';
 const title = ref<string>('Let your dreams take flight...');
@@ -46,6 +46,26 @@ const formData: Ref<IformData> = ref({
   returnDate: ''
 });
 
+const isBookingDisabled = (data: IformData): boolean => {
+  return Object.keys(data).some(key => {
+    const val = data[key];
+    if(key === 'children'){
+      return false;
+    }
+    if(!val && key === 'returnDate') {
+      return data.type === 2;
+    }
+    return !val;
+  })
+};
+
+onMounted(() => {
+  bookingDisabled.value = isBookingDisabled(formData.value);
+})
+
+watch(formData.value, (newValue) => {
+  bookingDisabled.value = isBookingDisabled(newValue)
+})
 </script>
 
 <template>
