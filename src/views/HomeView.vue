@@ -1,73 +1,74 @@
-<script setup lang="ts">
-import { ref, watch, type Ref, onMounted } from 'vue';
-
-const bookBtnContent = 'Book a flight';
-const title = ref<string>('Let your dreams take flight...');
-const bookingDisabled = ref(false);
-const themeClass = ref('is-link');
-const textAlignment = ref('has-text-centered');
-const containerClasses = ['container', textAlignment.value];
-const submitMessage = ref('');
-const isBookingSubmitted = ref(false);
-
-const cities = [
-  'Dubai',
-  'Amsterdam',
-  'Paris',
-  'Copenhagen',
-  'New Delhi',
-  'New York',
-  'Los Angeles',
-  'London',
-  'Oslo'
-];
-
-const onSubmit = (): void => {
-  isBookingSubmitted.value = true;
-  console.log("formData", formData.value);
-  submitMessage.value = "Booking successful!"
-};
-
-const onBlurOut = () => {
-  isBookingSubmitted.value = false;
-};
-
+<script lang="ts">
 interface IformData {
-  [key:string]: any
+  [key: string]: any;
 }
-
-const formData: Ref<IformData> = ref({
-  from: '',
-  to: '',
-  date: '',
-  adults: 0,
-  children: 0,
-  type: 1,
-  returnDate: ''
-});
-
-const isBookingDisabled = (data: IformData): boolean => {
-  return Object.keys(data).some(key => {
-    const val = data[key];
-    if(key === 'children'){
-      return false;
+export default {
+  data() {
+    return {
+      bookBtnContent: 'Book a flight',
+      title: 'Let your dreams take flight...',
+      bookingDisabled: false,
+      themeClass: 'is-link',
+      textAlignment: 'has-text-centered',
+      submitMessage: '',
+      isBookingSubmitted: false,
+      cities: [
+        'Dubai',
+        'Amsterdam',
+        'Paris',
+        'Copenhagen',
+        'New Delhi',
+        'New York',
+        'Los Angeles',
+        'London',
+        'Oslo'
+      ],
+      formData: {
+        from: '',
+        to: '',
+        date: '',
+        adults: 0,
+        children: 0,
+        type: 1,
+        returnDate: ''
+      }
+    };
+  },
+  watch: {
+    formData: {
+      handler(newValue) {
+        this.bookingDisabled = this.isBookingDisabled(newValue);
+      },
+      deep: true
     }
-    if(!val && key === 'returnDate') {
-      return data.type === 2;
+  },
+  methods: {
+    onSubmit() {
+      this.isBookingSubmitted = true;
+      console.log('formData', this.formData);
+      this.submitMessage = 'Booking successful!';
+    },
+    onBlurOut() {
+      this.isBookingSubmitted = false;
+    },
+    isBookingDisabled(data: IformData): boolean {
+      return Object.keys(data).some((key) => {
+        const val = data[key];
+        if (key === 'children') {
+          return false;
+        }
+        if (!val && key === 'returnDate') {
+          return data.type === 2;
+        }
+        return !val;
+      });
     }
-    return !val;
-  })
+  },
+  mounted() {
+    this.bookingDisabled = this.isBookingDisabled(this.formData);
+  }
 };
-
-onMounted(() => {
-  bookingDisabled.value = isBookingDisabled(formData.value);
-})
-
-watch(formData.value, (newValue) => {
-  bookingDisabled.value = isBookingDisabled(newValue)
-})
 </script>
-
 <template>
   <main>
     <section class="hero" :class="themeClass">
@@ -83,17 +84,17 @@ watch(formData.value, (newValue) => {
         </nav>
       </div>
       <div class="hero-body">
-        <div :class="containerClasses">
+        <div :class="['container', textAlignment]">
           <h1 class="title is-1">{{ title }}</h1>
           <form class="form-wrapper">
             <div class="field is-grouped is-grouped-centered">
               <div class="control">
                 <label class="radio">
-                  <input type="radio" name="answer" v-model="formData.type" :value="1"/>
+                  <input type="radio" name="answer" v-model="formData.type" :value="1" />
                   One-way
                 </label>
                 <label class="radio">
-                  <input type="radio" name="answer" v-model="formData.type" :value="2"/>
+                  <input type="radio" name="answer" v-model="formData.type" :value="2" />
                   Two-way
                 </label>
               </div>
