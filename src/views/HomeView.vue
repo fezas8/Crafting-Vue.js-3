@@ -1,47 +1,46 @@
-<script setup lang="ts">
-import { ref } from 'vue';
-
-const bookBtnContent = 'Book a flight';
-const title = ref<string>('Let your dreams take flight...');
-const bookingDisabled = ref(false);
-const themeClass = ref('is-link');
-const textAlignment = ref('has-text-centered');
-const containerClasses = ['container', textAlignment.value];
-const submitMessage = ref('');
-const isBookingSubmitted = ref(false);
-
-const cities = [
-  "Dubai",
-  "Amsterdam",
-  "Paris",
-  "Copenhagen",
-  "New Delhi",
-  "New York",
-  "Los Angeles",
-  "London",
-  "Oslo"
-];
-
-const onSubmit = (): void => {
-  isBookingSubmitted.value = true
-  // submitMessage.value = JSON.stringify(formData.value);
-  submitMessage.value = `Booked from ${formData.value.from} to ${formData.value.to}, dated ${formData.value.date} for ${formData.value.adults} adult(s) and ${formData.value.children} child/children`;
+<script lang="ts">
+export default {
+  data() {
+    return {
+      bookBtnContent: 'Book a flight',
+      title: 'Let your dreams take flight...',
+      bookingDisabled: false,
+      themeClass: 'is-link',
+      textAlignment: 'has-text-centered',
+      submitMessage: '',
+      isBookingSubmitted: false,
+      cities: [
+        'Dubai',
+        'Amsterdam',
+        'Paris',
+        'Copenhagen',
+        'New Delhi',
+        'New York',
+        'Los Angeles',
+        'London',
+        'Oslo'
+      ],
+      formData: {
+        from: '',
+        to: '',
+        date: '',
+        adults: 0,
+        children: 0
+      }
+    };
+  },
+  methods: {
+    onSubmit() {
+      this.isBookingSubmitted = true;
+      // this.submitMessage= JSON.stringify(formData.value);
+      this.submitMessage = `Booked from ${this.formData.from} to ${this.formData.to}, dated ${this.formData.date} for ${this.formData.adults} adult(s) and ${this.formData.children} child/children`;
+    },
+    onBlurOut() {
+      this.isBookingSubmitted = false;
+    }
+  }
 };
-
-const onBlurOut = () => {
-  isBookingSubmitted.value = false
-}
-
-const formData = ref({
-  from: "",
-  to: "",
-  date: "",
-  adults: 0,
-  children: 0
-});
-
 </script>
-
 <template>
   <main>
     <section class="hero" :class="themeClass">
@@ -57,7 +56,7 @@ const formData = ref({
         </nav>
       </div>
       <div class="hero-body">
-        <div :class="containerClasses">
+        <div :class="['container', textAlignment]">
           <h1 class="title is-1">{{ title }}</h1>
           <form class="form-wrapper">
             <div class="field is-grouped is-grouped-centered">
@@ -106,11 +105,16 @@ const formData = ref({
               </div>
             </div>
           </form>
-          <button class="button is-warning is-medium" :disabled="bookingDisabled" @click="onSubmit" @blur="onBlurOut">
+          <button
+            class="button is-warning is-medium"
+            :disabled="bookingDisabled"
+            @click="onSubmit"
+            @blur="onBlurOut"
+          >
             {{ bookBtnContent }}
           </button>
           <div v-if="isBookingSubmitted" class="notification is-success">{{ submitMessage }}</div>
-          <p v-else> To book a flight please fill in the above fields and click 'submit' </p>
+          <p v-else>To book a flight please fill in the above fields and click 'submit'</p>
         </div>
       </div>
     </section>
