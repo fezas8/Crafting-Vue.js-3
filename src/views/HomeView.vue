@@ -1,23 +1,27 @@
-<script setup lang="ts">
-import { ref } from 'vue';
-
-const bookBtnContent = 'Book a flight';
-const title = ref<string>('Let your dreams take flight...');
-const bookingDisabled = ref(false);
-const themeClass = ref('is-link');
-const textAlignment = ref('has-text-centered');
-const containerClasses = ['container', textAlignment.value];
-const submitMessage = ref('');
-const isBookingSubmitted = ref(false);
-
-const onSubmit = (): void => {
-  isBookingSubmitted.value = true
-  submitMessage.value = 'Booking successful!';
+<script lang="ts">
+export default {
+  data() {
+    return {
+      bookBtnContent: 'Book a flight',
+      title: 'Let your dreams take flight...',
+      bookingDisabled: false,
+      themeClass: 'is-link',
+      textAlignment: 'has-text-centered',
+      submitMessage: '',
+      isBookingSubmitted: false
+    };
+  },
+  methods: {
+    onSubmit() {
+      this.isBookingSubmitted = true;
+      this.submitMessage = 'Booking successful!';
+    },
+    onBlurOut() {
+      this.isBookingSubmitted = false;
+      this.submitMessage = '';
+    }
+  }
 };
-
-const onBlurOut = () => {
-  isBookingSubmitted.value = false
-}
 </script>
 
 <template>
@@ -35,7 +39,7 @@ const onBlurOut = () => {
         </nav>
       </div>
       <div class="hero-body">
-        <div :class="containerClasses">
+        <div :class="['container', textAlignment]">
           <h1 class="title is-1">{{ title }}</h1>
           <form class="form-wrapper">
             <div class="field is-grouped is-grouped-centered">
