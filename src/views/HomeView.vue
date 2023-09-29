@@ -1,10 +1,17 @@
-<script setup lang="ts">
-import { ref, computed } from "vue";
-
-const bookBtnContent = 'Book a flight';
-const title = ref<string>('Let your dreams take flight...');
-const titleCapitalized = computed<string>(() => title.value.replace(/(^\w{1})|(\s+\w{1})/g, alphabet => alphabet.toUpperCase()) );
-//title.value = "Escape to your dreams";
+<script lang="ts">
+export default {
+  data(){
+    return {
+      bookBtnContent: 'Book a flight',
+      title: 'Let your dreams take flight...'
+    }
+  },
+  computed: {
+    titleCapitalized(){
+      return this.title.replace(/(^\w{1})|(\s+\w{1})/g, alphabet => alphabet.toUpperCase());
+    }
+  }
+}
 </script>
 
 <template>
