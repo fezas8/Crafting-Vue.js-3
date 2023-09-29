@@ -1,24 +1,27 @@
-<script setup lang="ts">
-import { ref } from 'vue';
-
-const bookBtnContent = 'Book a flight';
-const title = ref<string>('Let your dreams take flight...');
-const bookingDisabled = ref(false);
-const themeClass = ref('is-link');
-const textAlignment = ref('has-text-centered');
-const containerClasses = ['container', textAlignment.value];
-const submitMessage = ref('');
-const notificationClass = ref('');
-
-const onSubmit = (): void => {
-  submitMessage.value = 'Booking successful!';
-  notificationClass.value = 'notification is-success';
+<script lang="ts">
+export default {
+  data() {
+    return {
+      bookBtnContent: 'Book a flight',
+      title: 'Let your dreams take flight...',
+      bookingDisabled: false,
+      themeClass: 'is-link',
+      textAlignment: 'has-text-centered',
+      submitMessage: '',
+      notificationClass: ''
+    };
+  },
+  methods: {
+    onSubmit() {
+      this.submitMessage = 'Booking successful!';
+      this.notificationClass = 'notification is-success';
+    },
+    onBlurOut() {
+      this.submitMessage = '';
+      this.notificationClass = '';
+    }
+  }
 };
-
-const onBlurOut = () => {
-  submitMessage.value = "";
-  notificationClass.value = "";
-}
 </script>
 
 <template>
@@ -36,7 +39,7 @@ const onBlurOut = () => {
         </nav>
       </div>
       <div class="hero-body">
-        <div :class="containerClasses">
+        <div :class="['container', textAlignment]">
           <h1 class="title is-1">{{ title }}</h1>
           <form class="form-wrapper">
             <div class="field is-grouped is-grouped-centered">
@@ -91,7 +94,12 @@ const onBlurOut = () => {
               </div>
             </div>
           </form>
-          <button class="button is-warning is-medium" :disabled="bookingDisabled" @click="onSubmit" @blur="onBlurOut">
+          <button
+            class="button is-warning is-medium"
+            :disabled="bookingDisabled"
+            @click="onSubmit"
+            @blur="onBlurOut"
+          >
             {{ bookBtnContent }}
           </button>
           <div :class="notificationClass">{{ submitMessage }}</div>
