@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, type Ref, onMounted } from 'vue';
+import type { IFormData } from '@/types/common'
 
 const bookBtnContent = 'Book a flight';
 const title = ref<string>('Let your dreams take flight...');
@@ -32,11 +33,7 @@ const onBlurOut = () => {
   isBookingSubmitted.value = false;
 };
 
-interface IformData {
-  [key:string]: any
-}
-
-const formData: Ref<IformData> = ref({
+const formData: Ref<IFormData> = ref({
   from: '',
   to: '',
   date: '',
@@ -46,7 +43,7 @@ const formData: Ref<IformData> = ref({
   returnDate: ''
 });
 
-const isBookingDisabled = (data: IformData): boolean => {
+const isBookingDisabled = (data: IFormData): boolean => {
   return Object.keys(data).some(key => {
     const val = data[key];
     if(key === 'children'){
