@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, type Ref, onMounted } from 'vue';
-import type { IFormData } from '@/types/common'
+import type { IFormData } from '@/types/common';
+import NavBar from '@/components/NavBar.vue';
 
 const bookBtnContent = 'Book a flight';
 const title = ref<string>('Let your dreams take flight...');
@@ -69,15 +70,7 @@ watch(formData.value, (newValue) => {
   <main>
     <section class="hero" :class="themeClass">
       <div class="hero-head">
-        <nav class="navbar">
-          <div class="container">
-            <div class="navbar-brand">
-              <a class="navbar-item">
-                <h2 class="logo is-size-3">VUELINES</h2>
-              </a>
-            </div>
-          </div>
-        </nav>
+        <NavBar></NavBar>
       </div>
       <div class="hero-body">
         <div :class="containerClasses">
@@ -186,10 +179,6 @@ watch(formData.value, (newValue) => {
     url(https://images.unsplash.com/photo-1682687982141-0143020ed57a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3087&q=80);
   background-position: center;
   background-size: cover;
-}
-.logo {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-    Verdana, sans-serif;
 }
 .notification {
   width: fit-content;
