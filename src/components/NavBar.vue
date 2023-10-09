@@ -1,3 +1,6 @@
+<script setup lang="ts">
+const items = ["Home", "About"];
+</script>
 <template>
   <nav class="navbar">
     <div class="container">
@@ -5,6 +8,16 @@
         <a class="navbar-item">
           <h2 class="logo is-size-3">VUELINES</h2>
         </a>
+        <span class="navbar-burger" data-target="navbarMenuHeroA">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </div>
+      <div id="navbarMenuHeroA" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item is-active" v-for="(item, index) in items" :key="index">{{ item }}</a>
+        </div>
       </div>
     </div>
   </nav>
