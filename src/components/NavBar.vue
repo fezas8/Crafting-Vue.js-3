@@ -1,10 +1,23 @@
 <script setup lang="ts">
-const items = ['Home', 'About'];
+import { onMounted, ref } from 'vue';
+const items = ref([
+  { name: 'Home', active: false },
+  { name: 'About', active: false }
+]);
+const isHamburgerClicked = ref(false);
 const props = defineProps({
   activePage: {
     type: String,
     required: true
   }
+});
+const toggleItem = (itemName: string) => {
+  for (let item of items.value) {
+    item.active = item.name.toLowerCase() === itemName.toLowerCase();
+  }
+}
+onMounted(() => {
+  toggleItem(props.activePage)
 });
 </script>
 <template>
@@ -14,20 +27,28 @@ const props = defineProps({
         <a class="navbar-item">
           <h2 class="logo is-size-3">VUELINES</h2>
         </a>
-        <span class="navbar-burger" data-target="navbarMenuHeroA">
+        <span
+          class="navbar-burger"
+          :class="{ 'is-active': isHamburgerClicked }"
+          data-target="navbarMenuHeroA"
+          @click="isHamburgerClicked = !isHamburgerClicked"
+        >
           <span></span>
           <span></span>
           <span></span>
         </span>
       </div>
-      <div id="navbarMenuHeroA" class="navbar-menu">
+      <div id="navbarMenuHeroA" class="navbar-menu" :class="{ 'is-active': isHamburgerClicked }">
         <div class="navbar-end">
           <a
             class="navbar-item"
-            :class="{ 'is-active': props.activePage.toLowerCase() === item.toLowerCase() }"
+            :class="{
+              'is-active': item.active
+            }"
+            @click="toggleItem(item.name)"
             v-for="(item, index) in items"
             :key="index"
-            >{{ item }}</a
+            >{{ item.name }}</a
           >
         </div>
       </div>
