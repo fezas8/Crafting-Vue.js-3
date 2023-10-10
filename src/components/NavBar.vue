@@ -1,5 +1,11 @@
 <script setup lang="ts">
-const items = ["Home", "About"];
+const items = ['Home', 'About'];
+const props = defineProps({
+  activePage: {
+    type: String,
+    required: true
+  }
+});
 </script>
 <template>
   <nav class="navbar">
@@ -16,7 +22,13 @@ const items = ["Home", "About"];
       </div>
       <div id="navbarMenuHeroA" class="navbar-menu">
         <div class="navbar-end">
-          <a class="navbar-item is-active" v-for="(item, index) in items" :key="index">{{ item }}</a>
+          <a
+            class="navbar-item"
+            :class="{ 'is-active': props.activePage.toLowerCase() === item.toLowerCase() }"
+            v-for="(item, index) in items"
+            :key="index"
+            >{{ item }}</a
+          >
         </div>
       </div>
     </div>
