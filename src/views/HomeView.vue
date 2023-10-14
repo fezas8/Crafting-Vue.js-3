@@ -73,7 +73,7 @@ export default {
   <main>
     <section class="hero" :class="themeClass">
       <div class="hero-head">
-        <NavBar></NavBar>
+        <NavBar active-page="Home"></NavBar>
       </div>
       <div class="hero-body">
         <div :class="['container', textAlignment]">
