@@ -1,32 +1,3 @@
-<script lang="ts">
-export default {
-  data() {
-    return {
-      items: [
-        { name: 'Home', active: false },
-        { name: 'About', active: false }
-      ],
-      isHamburgerClicked: false
-    };
-  },
-  props: {
-    activePage: {
-      type: String,
-      required: true
-    }
-  },
-  methods: {
-    toggleItem(itemName: string) {
-      for (let item of this.items) {
-        item.active = item.name.toLowerCase() === itemName.toLowerCase();
-      }
-    }
-  },
-  mounted() {
-    this.toggleItem(this.activePage);
-  }
-};
-</script>
 <template>
   <nav class="navbar">
     <div class="container">
@@ -34,30 +5,6 @@ export default {
         <a class="navbar-item">
           <h2 class="logo is-size-3">VUELINES</h2>
         </a>
-        <span
-          class="navbar-burger"
-          :class="{ 'is-active': isHamburgerClicked }"
-          data-target="navbarMenuHeroA"
-          @click="isHamburgerClicked = !isHamburgerClicked"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </div>
-      <div id="navbarMenuHeroA" class="navbar-menu" :class="{ 'is-active': isHamburgerClicked }">
-        <div class="navbar-end">
-          <a
-            class="navbar-item"
-            :class="{
-              'is-active': item.active
-            }"
-            @click="toggleItem(item.name)"
-            v-for="(item, index) in items"
-            :key="index"
-            >{{ item.name }}</a
-          >
-        </div>
       </div>
     </div>
   </nav>
