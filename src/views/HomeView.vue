@@ -4,11 +4,17 @@ import NavBar from '@/components/NavBar.vue';
 import BookingForm from '@/components/BookingForm.vue';
 import BaseNotification from '@/components/BaseNotification.vue';
 
+type TNotificationDetails = {
+  message: string,
+  type: string,
+  show: boolean
+}
+
 const themeClass = ref('is-link');
-const notificationDetails = ref({
+const notificationDetails = ref<TNotificationDetails>({
   message: '',
   show: false,
-  type: 'success'
+  type: ''
 });
 </script>
 
