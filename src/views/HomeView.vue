@@ -4,12 +4,23 @@ import NavBar from '@/components/NavBar.vue';
 import BookingForm from '@/components/BookingForm.vue';
 import BaseNotification from '@/components/BaseNotification.vue';
 
+type TNotificationDetails = {
+  message: string,
+  type: string,
+  show: boolean
+}
+
 const themeClass = ref('is-link');
-const notificationDetails = ref({
+const notificationDetails = ref<TNotificationDetails>({
   message: '',
   show: false,
-  type: 'success'
+  type: ''
 });
+
+const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
+  notificationDetails.value = event.notificationDetails;
+};
+
 </script>
 
 <template>
@@ -19,7 +30,7 @@ const notificationDetails = ref({
         <NavBar active-page="Home"></NavBar>
       </div>
       <div class="hero-body">
-        <BookingForm />
+        <BookingForm @submit="onFormSubmit" />
         <BaseNotification
           v-if="notificationDetails.show"
           :notification-type="notificationDetails.type"
