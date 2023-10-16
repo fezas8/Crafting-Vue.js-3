@@ -1,23 +1,31 @@
-<script setup lang="ts">
-import { onMounted, ref } from 'vue';
-const items = ref([
-  { name: 'Home', active: false },
-  { name: 'About', active: false }
-]);
-const isHamburgerClicked = ref(false);
-const props = defineProps({
-  activePage: {
-    type: String,
-    required: true
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({
+  data() {
+    return {
+      items: [
+        { name: 'Home', active: false },
+        { name: 'About', active: false }
+      ],
+      isHamburgerClicked: false
+    };
+  },
+  props: {
+    activePage: {
+      type: String,
+      required: true
+    }
+  },
+  methods: {
+    toggleItem(itemName: string) {
+      for (let item of this.items) {
+        item.active = item.name.toLowerCase() === itemName.toLowerCase();
+      }
+    }
+  },
+  mounted() {
+    this.toggleItem(this.activePage);
   }
-});
-const toggleItem = (itemName: string) => {
-  for (let item of items.value) {
-    item.active = item.name.toLowerCase() === itemName.toLowerCase();
-  }
-}
-onMounted(() => {
-  toggleItem(props.activePage)
 });
 </script>
 <template>

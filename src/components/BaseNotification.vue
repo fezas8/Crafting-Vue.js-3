@@ -1,26 +1,33 @@
-<script setup lang="ts">
-const props = defineProps({
-  notificationType: {
-    type: String,
-    default: 'success',
-    validator(value: string) {
-      return ['success', 'warning', 'info', 'error'].includes(value);
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({
+  props: {
+    notificationType: {
+      type: String,
+      default: 'success',
+      validator: (value: string) =>  {
+        return ['success', 'warning', 'info', 'error'].includes(value);
+      }
+    },
+    message: {
+      type: String,
+      required: true
     }
   },
-  message: {
-    type: String,
-    required: true
+  data() {
+    return {
+      classTypes: {
+        success: 'is-success',
+        warning: 'is-warning',
+        info: 'is-info',
+        error: 'is-danger'
+      } as { [key: string]: string }
+    };
   }
 });
-const classTypes: { [key: string]: string } = {
-  success: 'is-success',
-  warning: 'is-warning',
-  info: 'is-info',
-  error: 'is-danger'
-};
 </script>
 <template>
-  <div class="notification" :class="classTypes[props.notificationType]">{{ props.message }}</div>
+  <div class="notification" :class="classTypes[notificationType]">{{ message }}</div>
 </template>
 <style scoped>
 .notification {

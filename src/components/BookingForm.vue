@@ -1,73 +1,77 @@
-<script setup lang="ts">
-import { ref, watch, type Ref, onMounted } from 'vue';
+<script lang="ts">
+import { defineComponent } from 'vue';
 import type { IFormData } from '@/types/common';
-
-const bookBtnContent = 'Book a flight';
-const title = ref<string>('Let your dreams take flight...');
-const bookingDisabled = ref(false);
-const themeClass = ref('is-link');
-const textAlignment = ref('has-text-centered');
-const containerClasses = ['container', textAlignment.value];
-const submitMessage = ref('');
-const isBookingSubmitted = ref(false);
-
-const cities = [
-  'Dubai',
-  'Amsterdam',
-  'Paris',
-  'Copenhagen',
-  'New Delhi',
-  'New York',
-  'Los Angeles',
-  'London',
-  'Oslo'
-];
-
-const emit = defineEmits(['submit']);
-
-const onSubmit = (): void => {
-  isBookingSubmitted.value = true;
-  submitMessage.value = 'Booking successful!';
-  emit('submit', { notificationDetails: { type: 'success', show: true, message: submitMessage.value } });
-};
-
-const onBlurOut = () => {
-  isBookingSubmitted.value = false;
-};
-
-const formData: Ref<IFormData> = ref({
-  from: '',
-  to: '',
-  date: '',
-  adults: 0,
-  children: 0,
-  type: 1,
-  returnDate: ''
-});
-
-const isBookingDisabled = (data: IFormData): boolean => {
-  return Object.keys(data).some((key) => {
-    const val = data[key];
-    if (key === 'children') {
-      return false;
+export default defineComponent({
+  data() {
+    return {
+      bookBtnContent: 'Book a flight',
+      title: 'Let your dreams take flight...',
+      bookingDisabled: false,
+      themeClass: 'is-link',
+      textAlignment: 'has-text-centered',
+      submitMessage: '',
+      isBookingSubmitted: false,
+      cities: [
+        'Dubai',
+        'Amsterdam',
+        'Paris',
+        'Copenhagen',
+        'New Delhi',
+        'New York',
+        'Los Angeles',
+        'London',
+        'Oslo'
+      ],
+      formData: {
+        from: '',
+        to: '',
+        date: '',
+        adults: 0,
+        children: 0,
+        type: 1,
+        returnDate: ''
+      }
+    };
+  },
+  emits: ['submit'],
+  watch: {
+    formData: {
+      handler(newValue) {
+        this.bookingDisabled = this.isBookingDisabled(newValue);
+      },
+      deep: true
     }
-    if (!val && key === 'returnDate') {
-      return data.type === 2;
+  },
+  methods: {
+    onSubmit() {
+      this.isBookingSubmitted = true;
+      console.log('formData', this.formData);
+      this.submitMessage = 'Booking successful!';
+      this.$emit('submit', { notificationDetails: { type: 'success', show: true, message: this.submitMessage } });
+    },
+    onBlurOut() {
+      this.isBookingSubmitted = false;
+    },
+    isBookingDisabled(data: IFormData): boolean {
+      return Object.keys(data).some((key) => {
+        const val = data[key];
+        if (key === 'children') {
+          return false;
+        }
+        if (!val && key === 'returnDate') {
+          return data.type === 2;
+        }
+        return !val;
+      });
     }
-    return !val;
-  });
-};
-
-onMounted(() => {
-  bookingDisabled.value = isBookingDisabled(formData.value);
-});
-
-watch(formData.value, (newValue) => {
-  bookingDisabled.value = isBookingDisabled(newValue);
+  },
+  mounted() {
+    this.bookingDisabled = this.isBookingDisabled(this.formData);
+  }
 });
 </script>
 <template>
-  <div :class="containerClasses">
+  <div :class="['container', textAlignment]">
     <h1 class="title is-1">{{ title }}</h1>
     <form class="form-wrapper">
       <div class="field is-grouped is-grouped-centered">

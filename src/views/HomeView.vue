@@ -1,26 +1,32 @@
-<script setup lang="ts">
-import { ref } from 'vue';
+<script lang="ts">
+import { defineComponent } from 'vue';
 import NavBar from '@/components/NavBar.vue';
 import BookingForm from '@/components/BookingForm.vue';
 import BaseNotification from '@/components/BaseNotification.vue';
 
 type TNotificationDetails = {
-  message: string,
-  type: string,
-  show: boolean
-}
-
-const themeClass = ref('is-link');
-const notificationDetails = ref<TNotificationDetails>({
-  message: '',
-  show: false,
-  type: ''
-});
-
-const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
-  notificationDetails.value = event.notificationDetails;
+  message: string;
+  type: string;
+  show: boolean;
 };
-
+export default defineComponent({
+  components: { NavBar, BookingForm, BaseNotification },
+  data() {
+    return {
+      themeClass: 'is-link',
+      notificationDetails: {
+        message: '',
+        show: false,
+        type: ''
+      } as TNotificationDetails
+    };
+  },
+  methods: {
+    onFormSubmit(event: { notificationDetails: TNotificationDetails }){
+      this.notificationDetails = event.notificationDetails;
+    }
+  }
+});
 </script>
 
 <template>
