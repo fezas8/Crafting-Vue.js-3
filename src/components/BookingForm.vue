@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, type Ref, onMounted } from 'vue';
 import type { IFormData } from '@/types/common';
+import BaseInputDate from './BaseInputDate.vue';
 
 const bookBtnContent = 'Book a flight';
 const title = ref<string>('Let your dreams take flight...');
@@ -28,6 +29,7 @@ const emit = defineEmits(['submit']);
 const onSubmit = (): void => {
   isBookingSubmitted.value = true;
   submitMessage.value = 'Booking successful!';
+  console.log("formData", formData.value);
   emit('submit', { notificationDetails: { type: 'success', show: true, message: submitMessage.value } });
 };
 
@@ -102,13 +104,7 @@ watch(formData.value, (newValue) => {
           </div>
         </div>
         <div class="control">
-          <input
-            class="input"
-            :class="themeClass"
-            type="date"
-            placeholder="Enter date"
-            v-model="formData.date"
-          />
+          <BaseInputDate v-model="formData.date"></BaseInputDate>
         </div>
         <div class="control">
           <input
