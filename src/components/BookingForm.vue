@@ -29,8 +29,10 @@ const emit = defineEmits(['submit']);
 const onSubmit = (): void => {
   isBookingSubmitted.value = true;
   submitMessage.value = 'Booking successful!';
-  console.log("formData", formData.value);
-  emit('submit', { notificationDetails: { type: 'success', show: true, message: submitMessage.value } });
+  console.log('formData', formData.value);
+  emit('submit', {
+    notificationDetails: { type: 'success', show: true, message: submitMessage.value }
+  });
 };
 
 const onBlurOut = () => {
@@ -107,14 +109,11 @@ watch(formData.value, (newValue) => {
           <BaseInputDate v-model="formData.date"></BaseInputDate>
         </div>
         <div class="control">
-          <input
-            class="input"
-            :class="themeClass"
-            type="date"
-            placeholder="Enter return date"
+          <BaseInputDate
             v-model="formData.returnDate"
             :disabled="formData.type === 1"
-          />
+            placeholder="Enter return date"
+          ></BaseInputDate>
         </div>
         <div class="control">
           <input

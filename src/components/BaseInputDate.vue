@@ -9,6 +9,10 @@ const props = defineProps({
     type: String,
     default: 'Enter date'
   },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
   modelValue: {
     type: String,
     required: true
@@ -30,7 +34,8 @@ const date = computed({
     class="input"
     :class="props.classes"
     type="date"
-    placeholder="Enter date"
+    :placeholder=props.placeholder
+    :disabled="disabled"
     v-model="date"
   />
 </template>
