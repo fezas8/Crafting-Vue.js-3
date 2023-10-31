@@ -1,7 +1,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import type { IFormData } from '@/types/common';
+import BaseInputDate from './BaseInputDate.vue';
 export default defineComponent({
+  components: { BaseInputDate },
   data() {
     return {
       bookBtnContent: 'Book a flight',
@@ -47,7 +49,9 @@ export default defineComponent({
       this.isBookingSubmitted = true;
       console.log('formData', this.formData);
       this.submitMessage = 'Booking successful!';
-      this.$emit('submit', { notificationDetails: { type: 'success', show: true, message: this.submitMessage } });
+      this.$emit('submit', {
+        notificationDetails: { type: 'success', show: true, message: this.submitMessage }
+      });
     },
     onBlurOut() {
       this.isBookingSubmitted = false;
@@ -106,23 +110,14 @@ export default defineComponent({
           </div>
         </div>
         <div class="control">
-          <input
-            class="input"
-            :class="themeClass"
-            type="date"
-            placeholder="Enter date"
-            v-model="formData.date"
-          />
+          <BaseInputDate v-model="formData.date"></BaseInputDate>
         </div>
         <div class="control">
-          <input
-            class="input"
-            :class="themeClass"
-            type="date"
-            placeholder="Enter return date"
+          <BaseInputDate
             v-model="formData.returnDate"
             :disabled="formData.type === 1"
-          />
+            placeholder="Enter return date"
+          ></BaseInputDate>
         </div>
         <div class="control">
           <input
