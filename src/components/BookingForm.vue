@@ -73,7 +73,7 @@ watch(formData.value, (newValue) => {
 <template>
   <div :class="containerClasses">
     <h1 class="title is-1">{{ title }}</h1>
-    <form class="form-wrapper">
+    <form class="form-wrapper has-background-light has-text-link-dark">
       <div class="field is-grouped is-grouped-centered">
         <div class="control">
           <label class="radio">
@@ -150,10 +150,14 @@ watch(formData.value, (newValue) => {
 .button {
   margin-bottom: 24px;
 }
+.form-wrapper {
+  padding: 12px 0 16px 0;
+  border-radius: 10px;
+}
 .field {
   flex-wrap: wrap;
 }
 .control {
-  margin-top: 10px;
+  margin: 10px;
 }
 </style>
