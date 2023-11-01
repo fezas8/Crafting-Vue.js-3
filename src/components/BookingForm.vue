@@ -77,7 +77,7 @@ watch(formData.value, (newValue) => {
       <div class="field is-grouped is-grouped-centered">
         <div class="field">
           <div class="field-label">
-            <label for="from">Choose trip</label>
+            <label>Choose trip</label>
           </div>
           <div class="field-body">
             <div class="control">
