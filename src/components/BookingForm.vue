@@ -71,143 +71,71 @@ export default defineComponent({
   },
   mounted() {
     this.bookingDisabled = this.isBookingDisabled(this.formData);
-    (this.$refs.fromRef as HTMLSelectElement)?.focus();
   }
 });
 </script>
 <template>
   <div :class="['container', textAlignment]">
     <h1 class="title is-1">{{ title }}</h1>
-    <form class="form-wrapper has-background-white has-text-link-dark">
+    <form class="form-wrapper">
       <div class="field is-grouped is-grouped-centered">
-        <div class="field">
-          <div class="field-label">
-            <label>Choose trip</label>
-          </div>
-          <div class="field-body">
-            <div class="control">
-              <label class="radio">
-                <input
-                  id="one-way"
-                  name="one-way"
-                  type="radio"
-                  v-model="formData.type"
-                  :value="1"
-                />
-                One-way
-              </label>
-              <label class="radio">
-                <input
-                  id="two-way"
-                  name="two-way"
-                  type="radio"
-                  v-model="formData.type"
-                  :value="2"
-                />
-                Two-way
-              </label>
-            </div>
+        <div class="control">
+          <label class="radio">
+            <input type="radio" name="answer" v-model="formData.type" :value="1" />
+            One-way
+          </label>
+          <label class="radio">
+            <input type="radio" name="answer" v-model="formData.type" :value="2" />
+            Two-way
+          </label>
+        </div>
+        <div class="control">
+          <div class="select" :class="themeClass">
+            <select v-model="formData.from">
+              <option disabled value="">Travel from</option>
+              <template v-for="(city, index) in cities" :key="index">
+                <option v-if="city !== formData.to">{{ city }}</option>
+              </template>
+            </select>
           </div>
         </div>
-        <div class="field">
-          <div class="field-label">
-            <label for="from">Travel from</label>
-          </div>
-          <div class="field-body">
-            <div class="control">
-              <div class="select" :class="themeClass">
-                <select id="from" name="from" ref="fromRef" v-model="formData.from">
-                  <option disabled value="">Travel from</option>
-                  <template v-for="(city, index) in cities" :key="index">
-                    <option v-if="city !== formData.to">{{ city }}</option>
-                  </template>
-                </select>
-              </div>
-            </div>
+        <div class="control">
+          <div class="select" :class="themeClass">
+            <select v-model="formData.to">
+              <option disabled value="">Travel to</option>
+              <template v-for="(city, index) in cities" :key="index">
+                <option v-if="city !== formData.from">{{ city }}</option>
+              </template>
+            </select>
           </div>
         </div>
-        <div class="field">
-          <div class="field-label">
-            <label for="from">Travel to</label>
-          </div>
-          <div class="field-body">
-            <div class="control">
-              <div class="select" :class="themeClass">
-                <select id="to" name="to" v-model="formData.to">
-                  <option disabled value="">Travel to</option>
-                  <template v-for="(city, index) in cities" :key="index">
-                    <option v-if="city !== formData.from">{{ city }}</option>
-                  </template>
-                </select>
-              </div>
-            </div>
-          </div>
+        <div class="control">
+          <BaseInputDate v-model="formData.date"></BaseInputDate>
         </div>
-        <div class="field">
-          <div class="field-label">
-            <label for="start-date">Start date</label>
-          </div>
-          <div class="field-body">
-            <div class="control">
-              <BaseInputDate
-                id="start-date"
-                name="start-date"
-                v-model="formData.date"
-              ></BaseInputDate>
-            </div>
-          </div>
+        <div class="control">
+          <BaseInputDate
+            v-model="formData.returnDate"
+            :disabled="formData.type === 1"
+            placeholder="Enter return date"
+          ></BaseInputDate>
         </div>
-        <div class="field">
-          <div class="field-label">
-            <label for="return-date">Return date</label>
-          </div>
-          <div class="field-body">
-            <div class="control">
-              <BaseInputDate
-                id="return-date"
-                name="return-date"
-                v-model="formData.returnDate"
-                :disabled="formData.type === 1"
-                placeholder="Enter return date"
-              ></BaseInputDate>
-            </div>
-          </div>
+        <div class="control">
+          <input
+            class="input"
+            :class="themeClass"
+            type="number"
+            placeholder="1 Adult"
+            v-model="formData.adults"
+          />
         </div>
-        <div class="field">
-          <div class="field-label">
-            <label for="adults">Number of adults</label>
-          </div>
-          <div class="field-body">
-            <div class="control">
-              <input
-                id="adults"
-                name="adults"
-                class="input"
-                :class="themeClass"
-                type="number"
-                placeholder="1 Adult"
-                v-model="formData.adults"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="field">
-          <div class="field-label">
-            <label for="children">Number of children</label>
-          </div>
-          <div class="field-body">
-            <div class="control">
-              <input
-                id="children"
-                name="children"
-                class="input"
-                :class="themeClass"
-                type="number"
-                placeholder="1 Child"
-                v-model="formData.children"
-              />
-            </div>
-          </div>
+        <div class="control">
+          <input
+            class="input"
+            :class="themeClass"
+            type="number"
+            placeholder="1 Child"
+            v-model="formData.children"
+          />
         </div>
       </div>
     </form>
@@ -226,18 +154,10 @@ export default defineComponent({
 .button {
   margin-bottom: 24px;
 }
-.form-wrapper {
-  padding: 16px 0;
-  border-radius: 10px;
-}
 .field {
   flex-wrap: wrap;
 }
-.field-label {
-  text-align: start;
-  margin-left: 10px;
-}
 .control {
-  margin: 0 10px 10px 10px;
+  margin-top: 10px;
 }
 </style>
