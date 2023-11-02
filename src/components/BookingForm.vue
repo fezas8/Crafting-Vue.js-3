@@ -11,7 +11,7 @@ const textAlignment = ref('has-text-centered');
 const containerClasses = ['container', textAlignment.value];
 const submitMessage = ref('');
 const isBookingSubmitted = ref(false);
-const fromRef = ref<HTMLInputElement | null>(null)
+const fromRef = ref<HTMLSelectElement | null>(null);
 
 const cities = [
   'Dubai',
