@@ -11,6 +11,7 @@ const textAlignment = ref('has-text-centered');
 const containerClasses = ['container', textAlignment.value];
 const submitMessage = ref('');
 const isBookingSubmitted = ref(false);
+const fromRef = ref<HTMLInputElement | null>(null)
 
 const cities = [
   'Dubai',
@@ -64,6 +65,7 @@ const isBookingDisabled = (data: IFormData): boolean => {
 
 onMounted(() => {
   bookingDisabled.value = isBookingDisabled(formData.value);
+  fromRef.value?.focus();
 });
 
 watch(formData.value, (newValue) => {
@@ -111,7 +113,7 @@ watch(formData.value, (newValue) => {
           <div class="field-body">
             <div class="control">
               <div class="select" :class="themeClass">
-                <select id="from" name="from" v-model="formData.from">
+                <select id="from" name="from" ref="fromRef" v-model="formData.from">
                   <option disabled value="">Travel from</option>
                   <template v-for="(city, index) in cities" :key="index">
                     <option v-if="city !== formData.to">{{ city }}</option>
