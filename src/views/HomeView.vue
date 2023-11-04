@@ -34,10 +34,8 @@ const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
           v-if="notificationDetails.show"
           :notification-type="notificationDetails.type"
         >
+        <template #header>Message: </template>
           {{ notificationDetails.message }}
-          <!-- or add HTML content-->
-          <!-- <div>{{ notificationDetails.message }}</div>
-          <button class="button">close</button> -->
         </BaseNotification>
       </div>
     </section>

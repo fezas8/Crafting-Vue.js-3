@@ -16,9 +16,21 @@ const classTypes: { [key: string]: string } = {
 };
 </script>
 <template>
-  <div class="notification" :class="classTypes[props.notificationType]">
-    <slot></slot>
-  </div>
+  <section class="notification" :class="classTypes[props.notificationType]">
+    <header>
+      <slot name="header"></slot>
+    </header>
+    <div>
+      <!-- main content -->
+      <slot></slot>
+    </div>
+    <footer>
+      <slot name="footer">
+        <!-- fallback content -->
+        <button class="button is-link">{{ props.notificationType }}</button>
+      </slot>
+    </footer>
+  </section>
 </template>
 <style scoped>
 .notification {
