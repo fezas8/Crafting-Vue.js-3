@@ -6,10 +6,6 @@ const props = defineProps({
     validator(value: string) {
       return ['success', 'warning', 'info', 'error'].includes(value);
     }
-  },
-  message: {
-    type: String,
-    required: true
   }
 });
 const classTypes: { [key: string]: string } = {
@@ -20,7 +16,9 @@ const classTypes: { [key: string]: string } = {
 };
 </script>
 <template>
-  <div class="notification" :class="classTypes[props.notificationType]">{{ props.message }}</div>
+  <div class="notification" :class="classTypes[props.notificationType]">
+    <slot></slot>
+  </div>
 </template>
 <style scoped>
 .notification {

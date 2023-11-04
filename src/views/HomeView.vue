@@ -5,10 +5,10 @@ import BookingForm from '@/components/BookingForm.vue';
 import BaseNotification from '@/components/BaseNotification.vue';
 
 type TNotificationDetails = {
-  message: string,
-  type: string,
-  show: boolean
-}
+  message: string;
+  type: string;
+  show: boolean;
+};
 
 const themeClass = ref('is-link');
 const notificationDetails = ref<TNotificationDetails>({
@@ -20,7 +20,6 @@ const notificationDetails = ref<TNotificationDetails>({
 const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
   notificationDetails.value = event.notificationDetails;
 };
-
 </script>
 
 <template>
@@ -34,8 +33,9 @@ const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
         <BaseNotification
           v-if="notificationDetails.show"
           :notification-type="notificationDetails.type"
-          :message="notificationDetails.message"
-        ></BaseNotification>
+        >
+          {{ notificationDetails.message }}
+        </BaseNotification>
       </div>
     </section>
     <section class="section image-section"></section>
