@@ -8,10 +8,6 @@ export default defineComponent({
       validator: (value: string) =>  {
         return ['success', 'warning', 'info', 'error'].includes(value);
       }
-    },
-    message: {
-      type: String,
-      required: true
     }
   },
   data() {
@@ -27,7 +23,21 @@ export default defineComponent({
 });
 </script>
 <template>
-  <div class="notification" :class="classTypes[notificationType]">{{ message }}</div>
+  <section class="notification" :class="classTypes[notificationType]">
+    <header>
+      <slot name="header"></slot>
+    </header>
+    <div>
+      <!-- main content -->
+      <slot></slot>
+    </div>
+    <footer>
+      <slot name="footer">
+        <!-- fallback content -->
+        <button class="button is-link">Ok</button>
+      </slot>
+    </footer>
+  </section>
 </template>
 <style scoped>
 .notification {

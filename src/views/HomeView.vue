@@ -22,7 +22,7 @@ export default defineComponent({
     };
   },
   methods: {
-    onFormSubmit(event: { notificationDetails: TNotificationDetails }){
+    onFormSubmit(event: { notificationDetails: TNotificationDetails }) {
       this.notificationDetails = event.notificationDetails;
     }
   }
@@ -40,8 +40,10 @@ export default defineComponent({
         <BaseNotification
           v-if="notificationDetails.show"
           :notification-type="notificationDetails.type"
-          :message="notificationDetails.message"
-        ></BaseNotification>
+        >
+          <template #header>Message:</template>
+          {{ notificationDetails.message }}
+        </BaseNotification>
       </div>
     </section>
     <section class="section image-section"></section>
