@@ -35,6 +35,9 @@ const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
           :notification-type="notificationDetails.type"
         >
           {{ notificationDetails.message }}
+          <!-- or add HTML content-->
+          <!-- <div>{{ notificationDetails.message }}</div>
+          <button class="button">close</button> -->
         </BaseNotification>
       </div>
     </section>
