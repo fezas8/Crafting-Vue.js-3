@@ -27,7 +27,7 @@ const classTypes: { [key: string]: string } = {
     <footer>
       <slot name="footer">
         <!-- fallback content -->
-        <button class="button is-link">{{ props.notificationType }}</button>
+        <button class="button is-link">Ok</button>
       </slot>
     </footer>
   </section>
