@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, provide } from 'vue';
 import NavBar from '@/components/NavBar.vue';
 import BookingForm from '@/components/BookingForm.vue';
 import BaseNotification from '@/components/BaseNotification.vue';
 
+const themeClass = ref("is-link");
+provide('themeClass', themeClass);
 type TNotificationDetails = {
   message: string;
   type: string;
   show: boolean;
 };
-
-const themeClass = ref('is-link');
 const notificationDetails = ref<TNotificationDetails>({
   message: '',
   show: false,
@@ -19,6 +19,7 @@ const notificationDetails = ref<TNotificationDetails>({
 
 const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
   notificationDetails.value = event.notificationDetails;
+  themeClass.value = "is-warning";
 };
 </script>
 

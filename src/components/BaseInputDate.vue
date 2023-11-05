@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
+
+const themeClass = inject<string>('themeClass');
+
 const props = defineProps({
   classes: {
     type: Array,
-    default: () => ['is-link', 'input']
+    default: () => [ 'input' ]
   },
   placeholder: {
     type: String,
@@ -26,13 +29,14 @@ const date = computed({
   },
   set(value: string) {
     emit('update:modelValue', value);
+    // have fun with changing theme
+    // themeClass.value = "is-warning"  
   }
 });
 </script>
 <template>
   <input
-    class="input"
-    :class="props.classes"
+    :class="[...props.classes, themeClass]"
     type="date"
     :placeholder=props.placeholder
     :disabled="disabled"

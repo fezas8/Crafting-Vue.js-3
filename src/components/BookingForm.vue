@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { ref, watch, type Ref, onMounted } from 'vue';
+import { ref, watch, type Ref, onMounted, inject } from 'vue';
 import type { IFormData } from '@/types/common';
 import BaseInputDate from './BaseInputDate.vue';
 
 const bookBtnContent = 'Book a flight';
 const title = ref<string>('Let your dreams take flight...');
 const bookingDisabled = ref(false);
-const themeClass = ref('is-link');
+// const themeClass = ref('is-link');
+const themeClass = inject<string>('themeClass');
 const textAlignment = ref('has-text-centered');
 const containerClasses = ['container', textAlignment.value];
 const submitMessage = ref('');
