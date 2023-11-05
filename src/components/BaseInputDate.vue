@@ -5,7 +5,7 @@ export default defineComponent({
   props: {
     classes: {
       type: Array,
-      default: () => ['is-link', 'input']
+      default: () => ['input']
     },
     placeholder: {
       type: String,
@@ -26,13 +26,18 @@ export default defineComponent({
         this.$emit('update:modelValue', value);
       }
     }
+  },
+  inject: ['themeClass'],
+  data(){
+    return {
+      themeClass: this.themeClass
+    }
   }
 });
 </script>
 <template>
   <input
-    class="input"
-    :class="classes"
+    :class="[...classes, themeClass]"
     type="date"
     :placeholder="placeholder"
     v-model="date"

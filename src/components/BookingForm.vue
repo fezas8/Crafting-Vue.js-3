@@ -9,7 +9,7 @@ export default defineComponent({
       bookBtnContent: 'Book a flight',
       title: 'Let your dreams take flight...',
       bookingDisabled: false,
-      themeClass: 'is-link',
+      themeClass: this.themeClass,
       textAlignment: 'has-text-centered',
       submitMessage: '',
       isBookingSubmitted: false,
@@ -36,6 +36,7 @@ export default defineComponent({
     };
   },
   emits: ['submit'],
+  inject: ['themeClass'],
   watch: {
     formData: {
       handler(newValue) {

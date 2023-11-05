@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
 import NavBar from '@/components/NavBar.vue';
 import BookingForm from '@/components/BookingForm.vue';
 import BaseNotification from '@/components/BaseNotification.vue';
@@ -24,6 +24,11 @@ export default defineComponent({
   methods: {
     onFormSubmit(event: { notificationDetails: TNotificationDetails }) {
       this.notificationDetails = event.notificationDetails;
+    }
+  },
+  provide() {
+    return {
+      themeClass: computed(() => this.themeClass)
     }
   }
 });
