@@ -28,7 +28,7 @@ const emit = defineEmits(['submit']);
 
 const onSubmit = (): void => {
   isFormSubmitted.value = true;
-  submitMessage.value = 'Booking successful!';
+  submitMessage.value = 'Form submitted';
   console.log('formData', formData.value);
   emit('submit', {
     notificationDetails: { type: 'success', show: true, message: submitMessage.value }
