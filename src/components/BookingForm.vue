@@ -28,7 +28,7 @@ const emit = defineEmits(['submit']);
 
 const onSubmit = (): void => {
   isFormSubmitted.value = true;
-  submitMessage.value = 'Form submitted';
+  submitMessage.value = 'Flight search form submitted';
   console.log('formData', formData.value);
   emit('submit', {
     notificationDetails: { type: 'success', show: true, message: submitMessage.value }
@@ -43,7 +43,7 @@ const formData: Ref<IFormData> = ref({
   from: '',
   to: '',
   date: '',
-  adults: 1,
+  persons: 1,
   children: 0,
   type: 1,
   returnDate: ''
@@ -143,18 +143,18 @@ watch(formData.value, (newValue) => {
         </div>
         <div class="field">
           <div class="field-label">
-            <label for="adults">Adults</label>
+            <label for="persons">Persons</label>
           </div>
           <div class="field-body">
             <div class="control">
               <input
-                id="adults"
-                name="adults"
+                id="persons"
+                name="persons"
                 class="input"
                 :class="themeClass"
                 type="number"
-                placeholder="1 Adult"
-                v-model="formData.adults"
+                placeholder="1 Person"
+                v-model="formData.persons"
               />
             </div>
           </div>
