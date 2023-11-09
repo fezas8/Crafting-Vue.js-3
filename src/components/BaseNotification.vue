@@ -14,9 +14,10 @@ const classTypes: { [key: string]: string } = {
   info: 'is-info',
   error: 'is-danger'
 };
+const emit = defineEmits(['close']);
 </script>
 <template>
-  <section class="notification" :class="classTypes[props.notificationType]">
+  <section class="notification has-text-centered" :class="classTypes[props.notificationType]">
     <header>
       <slot name="header"></slot>
     </header>
@@ -27,7 +28,7 @@ const classTypes: { [key: string]: string } = {
     <footer>
       <slot name="footer">
         <!-- fallback content -->
-        <button class="button is-link">Ok</button>
+        <button class="button is-light" @click="$emit('close')">Close</button>
       </slot>
     </footer>
   </section>
@@ -36,5 +37,8 @@ const classTypes: { [key: string]: string } = {
 .notification {
   width: fit-content;
   margin: 0 auto;
+}
+.button {
+  margin-top: 16px;
 }
 </style>

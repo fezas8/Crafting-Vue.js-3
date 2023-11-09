@@ -25,7 +25,7 @@ onMounted(() => {
     <div class="container">
       <div class="navbar-brand">
         <a class="navbar-item">
-          <h2 class="logo is-size-3">VUELINES</h2>
+          <h2 class="logo is-size-4">Vuelines</h2>
         </a>
         <span
           class="navbar-burger"

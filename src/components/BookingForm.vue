@@ -3,15 +3,13 @@ import { ref, watch, type Ref, onMounted, inject } from 'vue';
 import type { IFormData } from '@/types/common';
 import BaseInputDate from './BaseInputDate.vue';
 
-const bookBtnContent = 'Book a flight';
-const title = ref<string>('Let your dreams take flight...');
+const submitBtnContent = 'Search flights';
 const bookingDisabled = ref(false);
 // const themeClass = ref('is-link');
 const themeClass = inject<string>('themeClass');
 const textAlignment = ref('has-text-centered');
-const containerClasses = ['container', textAlignment.value];
 const submitMessage = ref('');
-const isBookingSubmitted = ref(false);
+const isFormSubmitted = ref(false);
 const fromRef = ref<HTMLSelectElement | null>(null);
 
 const cities = [
@@ -29,7 +27,7 @@ const cities = [
 const emit = defineEmits(['submit']);
 
 const onSubmit = (): void => {
-  isBookingSubmitted.value = true;
+  isFormSubmitted.value = true;
   submitMessage.value = 'Booking successful!';
   console.log('formData', formData.value);
   emit('submit', {
@@ -38,14 +36,14 @@ const onSubmit = (): void => {
 };
 
 const onBlurOut = () => {
-  isBookingSubmitted.value = false;
+  isFormSubmitted.value = false;
 };
 
 const formData: Ref<IFormData> = ref({
   from: '',
   to: '',
   date: '',
-  adults: 0,
+  adults: 1,
   children: 0,
   type: 1,
   returnDate: ''
@@ -74,39 +72,9 @@ watch(formData.value, (newValue) => {
 });
 </script>
 <template>
-  <div :class="containerClasses">
-    <h1 class="title is-1">{{ title }}</h1>
-    <form class="form-wrapper has-background-white has-text-link-dark">
-      <div class="field is-grouped is-grouped-centered">
-        <div class="field">
-          <div class="field-label">
-            <label>Choose trip</label>
-          </div>
-          <div class="field-body">
-            <div class="control">
-              <label class="radio">
-                <input
-                  id="one-way"
-                  name="one-way"
-                  type="radio"
-                  v-model="formData.type"
-                  :value="1"
-                />
-                One-way
-              </label>
-              <label class="radio">
-                <input
-                  id="two-way"
-                  name="two-way"
-                  type="radio"
-                  v-model="formData.type"
-                  :value="2"
-                />
-                Two-way
-              </label>
-            </div>
-          </div>
-        </div>
+  <div :class="textAlignment" class="form-wrapper has-background-white has-text-dark">
+    <form>
+      <div class="field is-grouped field-group-wrapper">
         <div class="field">
           <div class="field-label">
             <label for="from">Travel from</label>
@@ -155,6 +123,8 @@ watch(formData.value, (newValue) => {
             </div>
           </div>
         </div>
+      </div>
+      <div class="field is-grouped field-group-wrapper">
         <div class="field">
           <div class="field-label">
             <label for="return-date">Return date</label>
@@ -173,7 +143,7 @@ watch(formData.value, (newValue) => {
         </div>
         <div class="field">
           <div class="field-label">
-            <label for="adults">Number of adults</label>
+            <label for="adults">Adults</label>
           </div>
           <div class="field-body">
             <div class="control">
@@ -189,9 +159,9 @@ watch(formData.value, (newValue) => {
             </div>
           </div>
         </div>
-        <div class="field">
+        <!-- <div class="field">
           <div class="field-label">
-            <label for="children">Number of children</label>
+            <label for="children">Child</label>
           </div>
           <div class="field-body">
             <div class="control">
@@ -206,27 +176,56 @@ watch(formData.value, (newValue) => {
               />
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
+      <div class="field">
+          <div class="field-label">
+            <label>Choose trip</label>
+          </div>
+          <div class="field-body">
+            <div class="control">
+              <label class="radio">
+                <input
+                  id="one-way"
+                  name="one-way"
+                  type="radio"
+                  v-model="formData.type"
+                  :value="1"
+                />
+                One-way
+              </label>
+              <label class="radio">
+                <input
+                  id="two-way"
+                  name="two-way"
+                  type="radio"
+                  v-model="formData.type"
+                  :value="2"
+                />
+                Two-way
+              </label>
+            </div>
+          </div>
+        </div>
     </form>
     <button
-      class="button is-warning is-medium"
-      :disabled="bookingDisabled"
-      @click="onSubmit"
-      @blur="onBlurOut"
-    >
-      {{ bookBtnContent }}
-    </button>
+        class="button is-info is-large"
+        :disabled="bookingDisabled"
+        @click="onSubmit"
+        @blur="onBlurOut"
+      >
+        {{ submitBtnContent }}
+      </button>
   </div>
 </template>
 <style scoped>
-.form-wrapper,
 .button {
-  margin-bottom: 24px;
+  margin: 24px;
 }
 .form-wrapper {
-  padding: 16px 0;
+  padding: 16px;
   border-radius: 10px;
+  width: fit-content;
 }
 .field {
   flex-wrap: wrap;

@@ -29,8 +29,6 @@ const date = computed({
   },
   set(value: string) {
     emit('update:modelValue', value);
-    // have fun with changing theme
-    // themeClass.value = "is-warning"  
   }
 });
 </script>
