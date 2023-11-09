@@ -48,9 +48,12 @@ const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
           <div class="content-wrapper">
             <h1 class="title is-1">{{ title }}</h1>
             <p class="subtitle">Let your dreams take flight</p>
-            <BaseTabs :tabs="tabs" @on-click="OnTabClick"> </BaseTabs>
-            <BookingForm v-if="activeTab.toLowerCase() === 'flight'" @submit="onFormSubmit" />
-            <BookingFormHotel v-if="activeTab.toLowerCase() === 'hotel'" @submit="onFormSubmit" />
+
+            <div class="forms">
+              <BaseTabs :tabs="tabs" @on-click="OnTabClick"> </BaseTabs>
+              <BookingForm v-if="activeTab.toLowerCase() === 'flight'" @submit="onFormSubmit" />
+              <BookingFormHotel v-if="activeTab.toLowerCase() === 'hotel'" @submit="onFormSubmit" />
+            </div>
             <Transition name="fade">
               <BaseNotification
                 v-if="notificationDetails.show"
@@ -75,15 +78,8 @@ const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
   background-attachment: fixed;
   height: 100vh;
 }
-.container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  grid-template-areas: 'content';
-  gap: 16px;
-}
-.content-wrapper {
-  grid-area: content;
+.forms {
+  margin-bottom: 32px;
 }
 .fade-enter-active,
 .fade-leave-active {

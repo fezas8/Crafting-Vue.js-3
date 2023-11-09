@@ -36,7 +36,7 @@ const emit = defineEmits(['close']);
 <style scoped>
 .notification {
   width: fit-content;
-  margin: 0 auto;
+  margin-left: 10vw;
 }
 .button {
   margin-top: 16px;
