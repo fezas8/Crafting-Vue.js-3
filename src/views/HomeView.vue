@@ -2,7 +2,9 @@
 import { ref, provide } from 'vue';
 import NavBar from '@/components/NavBar.vue';
 import BookingForm from '@/components/BookingForm.vue';
+import BookingFormHotel from '@/components/BookingFormHotel.vue';
 import BaseNotification from '@/components/BaseNotification.vue';
+import BaseTabs from '@/components/BaseTabs.vue';
 
 const themeClass = ref('is-dark');
 provide('themeClass', themeClass);
@@ -17,6 +19,18 @@ const notificationDetails = ref<TNotificationDetails>({
   type: ''
 });
 const title = ref<string>('Where do you want to fly?');
+
+const tabs = [
+  { icon: 'fas fa-plane', label: 'Flight' },
+  { icon: 'fas fa-hotel', label: 'Hotel' }
+];
+
+const activeTab = ref(tabs[0].label);
+
+const OnTabClick = (label: string) => {
+  activeTab.value = label;
+  console.log('activeTab', activeTab.value);
+};
 
 const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
   notificationDetails.value = event.notificationDetails;
@@ -34,17 +48,18 @@ const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
           <div class="content-wrapper">
             <h1 class="title is-1">{{ title }}</h1>
             <p class="subtitle">Let your dreams take flight</p>
-            <BookingForm @submit="onFormSubmit" />
+            <BaseTabs :tabs="tabs" @on-click="OnTabClick"> </BaseTabs>
+            <BookingForm v-if="activeTab.toLowerCase() === 'flight'" @submit="onFormSubmit" />
+            <BookingFormHotel v-if="activeTab.toLowerCase() === 'hotel'" @submit="onFormSubmit" />
             <Transition name="fade">
               <BaseNotification
-              v-if="notificationDetails.show"
-              :notification-type="notificationDetails.type"
-              @close="notificationDetails.show = false"
-            >
-              {{ notificationDetails.message }}
-            </BaseNotification>
+                v-if="notificationDetails.show"
+                :notification-type="notificationDetails.type"
+                @close="notificationDetails.show = false"
+              >
+                {{ notificationDetails.message }}
+              </BaseNotification>
             </Transition>
-            
           </div>
         </div>
       </div>
