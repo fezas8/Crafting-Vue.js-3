@@ -51,8 +51,14 @@ const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
 
             <div class="forms">
               <BaseTabs :tabs="tabs" @on-click="OnTabClick"> </BaseTabs>
-              <BookingForm v-if="activeTab.toLowerCase() === 'flight'" @submit="onFormSubmit" />
-              <BookingFormHotel v-if="activeTab.toLowerCase() === 'hotel'" @submit="onFormSubmit" />
+              <KeepAlive
+                ><BookingForm v-if="activeTab.toLowerCase() === 'flight'" @submit="onFormSubmit"
+              /></KeepAlive>
+              <KeepAlive
+                ><BookingFormHotel
+                  v-if="activeTab.toLowerCase() === 'hotel'"
+                  @submit="onFormSubmit"
+              /></KeepAlive>
             </div>
             <Transition name="fade">
               <BaseNotification
