@@ -8,15 +8,10 @@ import BaseTabs from '@/components/BaseTabs.vue';
 
 const themeClass = ref('is-dark');
 provide('themeClass', themeClass);
-type TNotificationDetails = {
-  message: string;
-  type: string;
-  show: boolean;
-};
-const notificationDetails = ref<TNotificationDetails>({
-  message: '',
-  show: false,
-  type: ''
+const submitDetails = ref({
+  formData: {},
+  onwardFlightData: null,
+  returnFlightData: null
 });
 const title = ref<string>('Where do you want to fly?');
 
@@ -31,9 +26,9 @@ const OnTabClick = (label: string) => {
   activeTab.value = label;
   console.log('activeTab', activeTab.value);
 };
-
-const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
-  notificationDetails.value = event.notificationDetails;
+const onFormSubmit = (event: any) => {
+  submitDetails.value = event;
+  console.log('submitDetails', submitDetails.value);
 };
 </script>
 
@@ -67,15 +62,30 @@ const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
                 ></component>
               </KeepAlive>
             </div>
-            <Transition name="fade">
-              <BaseNotification
-                v-if="notificationDetails.show"
-                :notification-type="notificationDetails.type"
-                @close="notificationDetails.show = false"
-              >
-                {{ notificationDetails.message }}
-              </BaseNotification>
-            </Transition>
+            <div class="has-background-white has-text-dark results">
+              <div v-if="submitDetails.onwardFlightData">
+                <ul v-for="item in submitDetails.onwardFlightData?.flights" :key="item.id">
+                  <li>Flight Number: {{ item.flightNumber }}</li>
+                  <li>Airport: {{ item.airport.name }}</li>
+                  <li>Airline: {{ item.airline.name }}</li>
+                  <li>Departure Date: {{ item.departure }}</li>
+                  <li>Arrival Date: {{ item.arrivalTime }}</li>
+                  <li>Transit time: {{ item.transitTime }}</li>
+                  <li>Price: {{ item.price }}</li>
+                  <li>-------------</li>
+                </ul>
+              </div>
+              <div v-if="submitDetails.returnFlightData">
+                <ul v-for="item in submitDetails.returnFlightData?.flights" :key="item.id">
+                  <li>{{ item.flightNumber }}</li>
+                  <li>{{ item.departureDate }}</li>
+                  <li>{{ item.departureTime }}</li>
+                  <li>{{ item.arrivalDate }}</li>
+                  <li>{{ item.arrivalTime }}</li>
+                  <li>{{ item.price }}</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -102,5 +112,10 @@ const onFormSubmit = (event: { notificationDetails: TNotificationDetails }) => {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.results {
+  margin-top: 32px;
+  padding: 16px;
 }
 </style>

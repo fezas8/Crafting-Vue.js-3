@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, type Ref, onMounted, inject } from 'vue';
-import type { IFormData } from '@/types/common';
+import type { IFormData, IFlight } from '@/types/common';
 import BaseInputDate from './BaseInputDate.vue';
 import BaseFieldWrapper from './BaseFieldWrapper.vue';
 import BaseSelectCities from './BaseSelectCities.vue';
@@ -14,12 +14,22 @@ const isFormSubmitted = ref(false);
 
 const emit = defineEmits(['submit']);
 
-const onSubmit = (): void => {
+const onSubmit = async(): void => {
   isFormSubmitted.value = true;
-  submitMessage.value = 'Flight search form submitted';
-  console.log('formData', formData.value);
+  const onwardFlightData = await fetchFlightData(formData.value.date);
+  if(formData.value.type === 1) {
+    emit('submit', {
+      formData: formData.value,
+      onwardFlightData,
+      returnFlightData: null
+    });
+    return;
+  }
+  const returnFlightData = await fetchFlightData(formData.value.returnDate);
   emit('submit', {
-    notificationDetails: { type: 'success', show: true, message: submitMessage.value }
+    formData: formData.value,
+    onwardFlightData,
+    returnFlightData
   });
 };
 
@@ -48,6 +58,17 @@ const isBookingDisabled = (data: IFormData): boolean => {
     }
     return !val;
   });
+};
+
+const fetchFlightData = async (departureDate: string) : Promise<IFlight | null > => {
+  try {
+    const response = await fetch(`/api/flights?departure=${departureDate}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log('error', error);
+    return null;
+  }
 };
 
 onMounted(() => {
