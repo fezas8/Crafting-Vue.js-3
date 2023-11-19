@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, type Ref, onMounted, inject } from 'vue';
-import type { IFormData } from '@/types/common';
+import type { IFormData, IHotel } from '@/types/common';
 import BaseInputDate from './BaseInputDate.vue';
 import BaseFieldWrapper from './BaseFieldWrapper.vue';
 import BaseSelectCities from './BaseSelectCities.vue';
@@ -9,17 +9,16 @@ const submitBtnContent = 'Search hotels';
 const bookingDisabled = ref(false);
 const themeClass = inject<string>('themeClass');
 const textAlignment = ref('has-text-centered');
-const submitMessage = ref('');
 const isFormSubmitted = ref(false);
 
 const emit = defineEmits(['submit']);
 
-const onSubmit = (): void => {
+const onSubmit = async (): Promise<void> => {
   isFormSubmitted.value = true;
-  submitMessage.value = 'Hotel Search Form submitted';
-  console.log('formData', formData.value);
+  const hotelDetails = await fetchHotelData();
   emit('submit', {
-    notificationDetails: { type: 'success', show: true, message: submitMessage.value }
+    formData: formData.value,
+    hotelDetails
   });
 };
 
@@ -40,6 +39,17 @@ const isBookingDisabled = (data: IFormData): boolean => {
     const val = data[key];
     return !val;
   });
+};
+
+const fetchHotelData = async (): Promise<IHotel | null> => {
+  try {
+    const response = await fetch(`/api/hotels`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log('error', error);
+    return null;
+  }
 };
 
 onMounted(() => {
@@ -113,11 +123,12 @@ watch(formData.value, (newValue) => {
       </div>
     </form>
     <button
-      class="button is-info is-large"
+      class="button is-primary is-large is-rounded"
       :disabled="bookingDisabled"
       @click="onSubmit"
       @blur="onBlurOut"
     >
+      <i class="fa-solid fa-magnifying-glass-location"></i>
       {{ submitBtnContent }}
     </button>
   </div>
@@ -125,11 +136,13 @@ watch(formData.value, (newValue) => {
 <style scoped>
 .button {
   margin: 24px;
+  align-self: center;
 }
 .form-wrapper {
   padding: 16px;
   border-radius: 10px;
   width: fit-content;
+  display: flex;
 }
 .field {
   flex-wrap: wrap;

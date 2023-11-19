@@ -14,7 +14,7 @@ const formatDateTime = (dateTime: string): string => {
 </script>
 <template>
   <div class="box">
-    <table class="table is-hoverable is-full-width">
+    <table class="table is-hoverable is-fullwidth">
       <thead>
         <tr>
           <th>Flight Number</th>
@@ -24,6 +24,7 @@ const formatDateTime = (dateTime: string): string => {
           <th>Arrival Date</th>
           <th>Transit time</th>
           <th>Price</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -35,6 +36,9 @@ const formatDateTime = (dateTime: string): string => {
           <td>{{ formatDateTime(item.arrivalTime) }}</td>
           <td>{{ item.transitTime }} h</td>
           <td><strong>{{ item.price }}</strong></td>
+          <td>
+            <button class="button is-info">Book</button>
+          </td>
         </tr>
       </tbody>
     </table>

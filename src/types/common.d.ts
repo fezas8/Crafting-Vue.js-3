@@ -16,3 +16,25 @@ export interface IFlight {
   transitTime: number;
   arrivalTime: string;
 }
+
+export interface IHotel {
+  name: string; 
+  address: string;
+  price: number;
+  rating: number;
+  stars: number;
+}
+
+export type TSubmitFormDetails = {
+  formData: any;
+  onwardFlightData?: {
+    flights: IFlight[];
+  };
+  returnFlightData?: {
+    flights: IFlight[];
+  };
+  hotelDetails?: {
+    hotels: IHotel[];
+  };
+};
+

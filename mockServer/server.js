@@ -6,7 +6,8 @@ export function makeServer({ environment = 'development' } = {}) {
     environment,
 
     models: {
-      flight: Model
+      flight: Model,
+      hotel: Model
     },
 
     factories: {
@@ -24,11 +25,14 @@ export function makeServer({ environment = 'development' } = {}) {
         },
 
         price() {
-          return 'USD ' + faker.commerce.price();
+          return "$ " + Math.floor(faker.commerce.price());
         },
 
         departure() {
-          return faker.date.future();
+          //date 3 months from now
+          const date = new Date();
+          date.setMonth(date.getMonth() + 3);
+          return faker.date.between(new Date(), date);
         },
 
         transitTime() {
@@ -44,25 +48,72 @@ export function makeServer({ environment = 'development' } = {}) {
             )
           );
         }
+      }),
+      hotel: Factory.extend({
+        name() {
+          return "Hotel " + faker.company.name();
+        },
+
+        address() {
+          return faker.location.streetAddress();
+        },
+
+        price() {
+          //price in dollars with no decimals
+          return "$ " + Math.floor(faker.commerce.price());
+        },
+
+        rating() {
+          return Math.floor(Math.random() * 100) / 10;
+        },
+
+        stars() {
+          return Math.floor(Math.random() * 5 + 1);
+        },
+
+        rooms() {
+          return Math.floor(Math.random() * 3 + 1);
+        }
       })
     },
     seeds(server) {
-      server.createList('flight', 3);
+      server.createList('flight', 5);
+      server.createList('hotel', 8);
     },
 
     routes() {
       this.namespace = 'api';
 
-      this.get('/flights', (schema) => {
-        return schema.flights.all();
-      });
-
-      //get flights by departure date
       this.get('/flights', (schema, request) => {
         const queryParams = request.queryParams;
-        return schema.flights.where((flight) => {
-          return new Date(flight.departure) >= new Date(queryParams.departure);
-        });
+        if (!Object.keys(queryParams).length) return schema.flights.all();
+        switch (true) {
+          case queryParams.departure:
+            return schema.flights.where(
+              (flight) => new Date(flight.departure) >= new Date(queryParams.departure)
+            );
+          case queryParams.price:
+            return schema.flights.where((flight) => flight.price <= queryParams.price);
+          case queryParams.transitTime:
+            return schema.flights.where((flight) => flight.transitTime <= queryParams.transitTime);
+          default:
+            return schema.flights.all();
+        }
+      });
+
+      this.get('/hotels', (schema, request) => {
+        const queryParams = request.queryParams;
+        if (!Object.keys(queryParams).length) return schema.hotels.all();
+        switch (true) {
+          case queryParams.rating:
+            return schema.hotels.where((hotel) => hotel.rating >= queryParams.rating);
+          case queryParams.stars:
+            return schema.hotels.where((hotel) => hotel.stars >= queryParams.stars);
+          case queryParams.price:
+            return schema.hotels.where((hotel) => hotel.price <= queryParams.price);
+          default:
+            return schema.hotels.all();
+        }
       });
     }
   });

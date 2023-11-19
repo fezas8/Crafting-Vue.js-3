@@ -5,15 +5,14 @@ import BookingForm from '@/components/BookingForm.vue';
 import BookingFormHotel from '@/components/BookingFormHotel.vue';
 // import BaseNotification from '@/components/BaseNotification.vue';
 import BaseTabs from '@/components/BaseTabs.vue';
-import BaseScheduleCard from '@/components/BaseScheduleCard.vue';
+import FlightPriceCard from '@/components/FlightPriceCard.vue';
+import HotelPriceCard from '@/components/HotelPriceCard.vue';
+import type { TSubmitFormDetails } from '@/types/common';
 
 const themeClass = ref('is-dark');
 provide('themeClass', themeClass);
-const submitDetails = ref({
-  formData: {},
-  onwardFlightData: null,
-  returnFlightData: null
-});
+const submitDetails = ref<TSubmitFormDetails | null>(null);
+
 const title = ref<string>('Where do you want to fly?');
 const showResults = ref(false);
 const tabs = [
@@ -27,7 +26,7 @@ const OnTabClick = (label: string) => {
   activeTab.value = label;
   console.log('activeTab', activeTab.value);
 };
-const onFormSubmit = (event: any) => {
+const onFormSubmit = (event: TSubmitFormDetails) => {
   submitDetails.value = event;
   console.log('submitDetails', submitDetails.value);
   showResults.value = true;
@@ -43,36 +42,47 @@ const onFormSubmit = (event: any) => {
       <div class="hero-body">
         <div class="container">
           <div class="content-wrapper">
-            <h1 class="title is-1">{{ title }}</h1>
-            <p class="subtitle">Let your dreams take flight</p>
             <div class="form-and-results">
               <Transition name="fade">
-                <div class="forms" v-show="!showResults">
-                  <BaseTabs :tabs="tabs" @on-click="OnTabClick"> </BaseTabs>
-                  <KeepAlive>
-                    <component
-                      :is="activeTab.toLowerCase() === 'flight' ? BookingForm : BookingFormHotel"
-                      @submit="onFormSubmit"
-                    ></component>
-                  </KeepAlive>
+                <div v-show="!showResults">
+                  <h1 class="title is-1">{{ title }}</h1>
+                  <p class="subtitle">Let your dreams take flight</p>
+                  <div class="forms">
+                    <BaseTabs :tabs="tabs" @on-click="OnTabClick"> </BaseTabs>
+                    <KeepAlive>
+                      <component
+                        :is="activeTab.toLowerCase() === 'flight' ? BookingForm : BookingFormHotel"
+                        @submit="onFormSubmit"
+                      ></component>
+                    </KeepAlive>
+                  </div>
                 </div>
               </Transition>
               <Transition name="slide">
-                <div v-show="showResults" class="box has-background-white has-text-dark results">
-                  <button class="button is-outlined edit-book" @click="showResults = false">
-                    Edit booking
+                <div v-show="showResults" class="results">
+                  <button class="button edit-search is-info is-light" @click="showResults = false">
+                    <span class="icon">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </span>
+                    <span>Modify search</span>
                   </button>
-                  <div v-if="submitDetails.onwardFlightData">
+                  <div v-if="submitDetails?.onwardFlightData">
                     <h2 class="is-size-3">Onward Journey</h2>
-                    <BaseScheduleCard
+                    <FlightPriceCard
                       :flightList="submitDetails.onwardFlightData?.flights"
-                    ></BaseScheduleCard>
+                    ></FlightPriceCard>
                   </div>
-                  <div v-if="submitDetails.returnFlightData">
+                  <div v-if="submitDetails?.returnFlightData">
                     <h2 class="is-size-3">Return Journey</h2>
-                    <BaseScheduleCard
+                    <FlightPriceCard
                       :flightList="submitDetails.returnFlightData?.flights"
-                    ></BaseScheduleCard>
+                    ></FlightPriceCard>
+                  </div>
+                  <div v-if="submitDetails?.hotelDetails">
+                    <h2 class="is-size-3">Hotels</h2>
+                    <HotelPriceCard
+                      :hotelList="submitDetails.hotelDetails?.hotels"
+                    ></HotelPriceCard>
                   </div>
                 </div>
               </Transition>
@@ -123,7 +133,6 @@ const onFormSubmit = (event: any) => {
   opacity: 0;
 }
 .results {
-  margin-top: 32px;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -131,7 +140,7 @@ const onFormSubmit = (event: any) => {
   gap: 16px;
 }
 
-.edit-book {
-  align-self: flex-end;
+.edit-search {
+  align-self: start;
 }
 </style>

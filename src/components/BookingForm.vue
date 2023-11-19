@@ -8,16 +8,15 @@ import BaseSelectCities from './BaseSelectCities.vue';
 const submitBtnContent = 'Search flights';
 const bookingDisabled = ref(false);
 const themeClass = inject<string>('themeClass');
-const textAlignment = ref('has-text-centered');
-const submitMessage = ref('');
+const textAlignment = ref('has-text-left');
 const isFormSubmitted = ref(false);
 
 const emit = defineEmits(['submit']);
 
-const onSubmit = async(): void => {
+const onSubmit = async (): Promise<void> => {
   isFormSubmitted.value = true;
   const onwardFlightData = await fetchFlightData(formData.value.date);
-  if(formData.value.type === 1) {
+  if (formData.value.type === 1) {
     emit('submit', {
       formData: formData.value,
       onwardFlightData,
@@ -60,7 +59,7 @@ const isBookingDisabled = (data: IFormData): boolean => {
   });
 };
 
-const fetchFlightData = async (departureDate: string) : Promise<IFlight | null > => {
+const fetchFlightData = async (departureDate: string): Promise<IFlight | null> => {
   try {
     const response = await fetch(`/api/flights?departure=${departureDate}`);
     const data = await response.json();
@@ -119,24 +118,25 @@ watch(formData.value, (newValue) => {
           <input
             id="persons"
             name="persons"
-            class="input"
+            class="input persons-input"
             :class="themeClass"
             type="number"
             placeholder="1 Person"
             v-model="formData.persons"
+            max="10"
           />
         </BaseFieldWrapper>
+        <BaseFieldWrapper label="Choose trip">
+          <label class="radio">
+            <input id="one-way" name="one-way" type="radio" v-model="formData.type" :value="1" />
+            One-way
+          </label>
+          <label class="radio">
+            <input id="two-way" name="two-way" type="radio" v-model="formData.type" :value="2" />
+            Two-way
+          </label>
+        </BaseFieldWrapper>
       </div>
-      <BaseFieldWrapper label="Choose trip">
-        <label class="radio">
-          <input id="one-way" name="one-way" type="radio" v-model="formData.type" :value="1" />
-          One-way
-        </label>
-        <label class="radio">
-          <input id="two-way" name="two-way" type="radio" v-model="formData.type" :value="2" />
-          Two-way
-        </label>
-      </BaseFieldWrapper>
     </form>
     <button
       class="button is-info is-large is-rounded"
@@ -144,17 +144,24 @@ watch(formData.value, (newValue) => {
       @click="onSubmit"
       @blur="onBlurOut"
     >
-      {{ submitBtnContent }}
+      <i class="fa-solid fa-magnifying-glass-dollar"></i>
+      <span>{{ submitBtnContent }}</span>
     </button>
   </div>
 </template>
 <style scoped>
 .button {
   margin: 24px;
+  align-self: center;
 }
 .form-wrapper {
   padding: 16px;
   border-radius: 10px;
   width: fit-content;
+  display: flex;
+}
+
+.persons-input {
+  width: 130px;
 }
 </style>
