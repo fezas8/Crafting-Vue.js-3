@@ -3,10 +3,8 @@ import { ref, provide } from 'vue';
 import NavBar from '@/components/NavBar.vue';
 import BookingForm from '@/components/BookingForm.vue';
 import BookingFormHotel from '@/components/BookingFormHotel.vue';
-// import BaseNotification from '@/components/BaseNotification.vue';
 import BaseTabs from '@/components/BaseTabs.vue';
-import FlightPriceCard from '@/components/FlightPriceCard.vue';
-import HotelPriceCard from '@/components/HotelPriceCard.vue';
+import SearchResults from '@/components/SearchResults.vue';
 import type { TSubmitFormDetails } from '@/types/common';
 
 const themeClass = ref('is-dark');
@@ -66,24 +64,7 @@ const onFormSubmit = (event: TSubmitFormDetails) => {
                     </span>
                     <span>Modify search</span>
                   </button>
-                  <div v-if="submitDetails?.onwardFlightData">
-                    <h2 class="is-size-3">Onward Journey</h2>
-                    <FlightPriceCard
-                      :flightList="submitDetails.onwardFlightData?.flights"
-                    ></FlightPriceCard>
-                  </div>
-                  <div v-if="submitDetails?.returnFlightData">
-                    <h2 class="is-size-3">Return Journey</h2>
-                    <FlightPriceCard
-                      :flightList="submitDetails.returnFlightData?.flights"
-                    ></FlightPriceCard>
-                  </div>
-                  <div v-if="submitDetails?.hotelDetails">
-                    <h2 class="is-size-3">Hotels</h2>
-                    <HotelPriceCard
-                      :hotelList="submitDetails.hotelDetails?.hotels"
-                    ></HotelPriceCard>
-                  </div>
+                  <SearchResults :submitDetails="submitDetails"></SearchResults>
                 </div>
               </Transition>
             </div>

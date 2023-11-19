@@ -99,7 +99,8 @@ export function makeServer({ environment = 'development' } = {}) {
           default:
             return schema.flights.all();
         }
-      });
+      },
+      { timing: 4000 });
 
       this.get('/hotels', (schema, request) => {
         const queryParams = request.queryParams;
@@ -114,7 +115,8 @@ export function makeServer({ environment = 'development' } = {}) {
           default:
             return schema.hotels.all();
         }
-      });
+      },
+      { timing: 4000 });
     }
   });
 
