@@ -2,11 +2,17 @@ export interface IFormData {
   [key: string]: any;
 }
 export interface IFlight {
-  airline: string;
+  airline: {
+    name: string;
+    iataTypeCode: string;
+  };
   flightNumber: string;
-  airport: string;
+  airport: {
+    name: string;
+    iataCode: string;
+  };
   price: number;
-  departure: Date;
+  departure: string;
   transitTime: number;
-  arrivalTime: Date;
+  arrivalTime: string;
 }

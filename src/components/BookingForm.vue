@@ -139,7 +139,7 @@ watch(formData.value, (newValue) => {
       </BaseFieldWrapper>
     </form>
     <button
-      class="button is-info is-large"
+      class="button is-info is-large is-rounded"
       :disabled="bookingDisabled"
       @click="onSubmit"
       @blur="onBlurOut"
